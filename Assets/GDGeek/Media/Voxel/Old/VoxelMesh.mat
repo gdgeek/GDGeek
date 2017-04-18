@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: VoxelMesh
+  m_Shader: {fileID: 4800000, guid: bac2c1e2708504bcebabdceaccca33fa, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+    - first:
+        name: _BumpMap
+      second:
+        m_Texture: {fileID: 2800000, guid: 8970919a40377460c82a23154c4e74ce, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DecalTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MainTex
+      second:
+        m_Texture: {fileID: 2800000, guid: 30866f407c0204b8ea6e3aba1b40bcb4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _ParallaxMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Ramp
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _ShadowTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _ToonShade
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - first:
+        name: _ColorMask
+      second: 15
+    - first:
+        name: _LightPower
+      second: 1.4
+    - first:
+        name: _Outline
+      second: 0.005
+    - first:
+        name: _Parallax
+      second: 0.02
+    - first:
+        name: _ShadowAlpha
+      second: 0.5
+    - first:
+        name: _Shininess
+      second: 0.078125
+    - first:
+        name: _Stencil
+      second: 0
+    - first:
+        name: _StencilComp
+      second: 8
+    - first:
+        name: _StencilOp
+      second: 0
+    - first:
+        name: _StencilReadMask
+      second: 255
+    - first:
+        name: _StencilWriteMask
+      second: 255
+    m_Colors:
+    - first:
+        name: _Color
+      second: {r: 0.22352941, g: 0.68235296, b: 0.07058824, a: 1}
+    - first:
+        name: _FrontBack
+      second: {r: 1, g: 0.5, b: 0, a: 0}
+    - first:
+        name: _KeyColor
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _KeyColorFrom
+      second: {r: 0.8980393, g: 0.8980393, b: 0.34901962, a: 1}
+    - first:
+        name: _KeyColorTo
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _LeftRight
+      second: {r: 0, g: 0, b: 0, a: 0}
+    - first:
+        name: _LightColor
+      second: {r: 0.54509807, g: 0.54509807, b: 0.54509807, a: 1}
+    - first:
+        name: _MainColor
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _OutlineColor
+      second: {r: 0, g: 0, b: 0, a: 1}
+    - first:
+        name: _SpecColor
+      second: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - first:
+        name: _UpDown
+      second: {r: 0, g: 0, b: 0, a: 0}

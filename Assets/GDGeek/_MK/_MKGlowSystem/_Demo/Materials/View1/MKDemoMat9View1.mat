@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: MKDemoMat9View1
+  m_Shader: {fileID: 4800000, guid: bea1129d02637fd489c76e5b9c373d21, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+    - first:
+        name: _MKGlowTex
+      second:
+        m_Texture: {fileID: 2800000, guid: f1828c83800a54fd9b5b6545c6a25a3f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MainTex
+      second:
+        m_Texture: {fileID: 2800000, guid: d2bfdb919488ef040b6f7e30c6d08ebf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - first:
+        name: _MKGlowOffSet
+      second: 0
+    - first:
+        name: _MKGlowPower
+      second: 1.25
+    - first:
+        name: _MKGlowTexStrength
+      second: 3.857143
+    - first:
+        name: _RimPower
+      second: 1.625
+    m_Colors:
+    - first:
+        name: _Color
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _MKGlowColor
+      second: {r: 1, g: 0.19117647, b: 0.34178492, a: 1}
+    - first:
+        name: _MKGlowTexColor
+      second: {r: 0.9852941, g: 0.3115268, b: 0.35334682, a: 1}
+    - first:
+        name: _RimColor
+      second: {r: 0.13235295, g: 1, b: 1, a: 1}

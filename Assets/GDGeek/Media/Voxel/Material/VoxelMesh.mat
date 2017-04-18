@@ -1,0 +1,371 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: VoxelMesh
+  m_Shader: {fileID: 4800000, guid: bac2c1e2708504bcebabdceaccca33fa, type: 3}
+  m_ShaderKeywords: GLOW11_GLOW_VERTEXCOLOR GLOW11_MULTIPLY_VERT S_SPECULAR_BLINNPHONG
+    _ALPHABLEND_ON _EMISSION
+  m_LightmapFlags: 1
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+    - first:
+        name: _BumpMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DetailAlbedoMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DetailMask
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DetailNormalMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DetailTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _EmissionMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _GlowTex
+      second:
+        m_Texture: {fileID: 2800000, guid: a39b59d8c7ef7b84dbb35746bb553dfc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MKGlowTex
+      second:
+        m_Texture: {fileID: 2800000, guid: d82b538ad4f1ecc4b85012e1996a12de, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MainTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MetallicGlossMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _OcclusionMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _ParallaxMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _ShadowTex
+      second:
+        m_Texture: {fileID: 2800000, guid: 30866f407c0204b8ea6e3aba1b40bcb4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _SpecGlossMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _ToonShade
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: g_tOverrideLightmap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - first:
+        name: PixelSnap
+      second: 0
+    - first:
+        name: _BumpAmt
+      second: 10
+    - first:
+        name: _BumpScale
+      second: 1
+    - first:
+        name: _ColorMask
+      second: 15
+    - first:
+        name: _Cull
+      second: 2
+    - first:
+        name: _Cutoff
+      second: 0
+    - first:
+        name: _DetailNormalMapScale
+      second: 1
+    - first:
+        name: _DstBlend
+      second: 10
+    - first:
+        name: _EmissionLM
+      second: 0
+    - first:
+        name: _EmissionScaleUI
+      second: 0
+    - first:
+        name: _FogMultiplier
+      second: 1
+    - first:
+        name: _GlossMapScale
+      second: 1
+    - first:
+        name: _Glossiness
+      second: 0.5
+    - first:
+        name: _GlossyReflections
+      second: 1
+    - first:
+        name: _GlowStrength
+      second: 0.44
+    - first:
+        name: _InvFade
+      second: 1
+    - first:
+        name: _LightPower
+      second: 1.4
+    - first:
+        name: _MKGlowOffSet
+      second: 0.0215
+    - first:
+        name: _MKGlowPower
+      second: 0.429
+    - first:
+        name: _MKGlowTexStrength
+      second: 0.415
+    - first:
+        name: _Metallic
+      second: 0
+    - first:
+        name: _Mode
+      second: 2
+    - first:
+        name: _OcclusionStrength
+      second: 1
+    - first:
+        name: _OcclusionStrengthDirectDiffuse
+      second: 1
+    - first:
+        name: _OcclusionStrengthDirectSpecular
+      second: 1
+    - first:
+        name: _OcclusionStrengthIndirectDiffuse
+      second: 1
+    - first:
+        name: _OcclusionStrengthIndirectSpecular
+      second: 1
+    - first:
+        name: _Outline
+      second: 0.003
+    - first:
+        name: _Parallax
+      second: 0.02
+    - first:
+        name: _ShadowAlpha
+      second: 0.5
+    - first:
+        name: _Shininess
+      second: 0.078125
+    - first:
+        name: _SmoothnessTextureChannel
+      second: 0
+    - first:
+        name: _SpecularHighlights
+      second: 1
+    - first:
+        name: _SpecularMode
+      second: 1
+    - first:
+        name: _SrcBlend
+      second: 5
+    - first:
+        name: _Stencil
+      second: 0
+    - first:
+        name: _StencilComp
+      second: 8
+    - first:
+        name: _StencilOp
+      second: 0
+    - first:
+        name: _StencilReadMask
+      second: 255
+    - first:
+        name: _StencilWriteMask
+      second: 255
+    - first:
+        name: _TransparentDistance
+      second: 5
+    - first:
+        name: _UVSec
+      second: 0
+    - first:
+        name: _UseUIAlphaClip
+      second: 0
+    - first:
+        name: _WindQuality
+      second: 0
+    - first:
+        name: _ZWrite
+      second: 0
+    - first:
+        name: _alpha
+      second: 0
+    - first:
+        name: _offsetX
+      second: 0
+    - first:
+        name: _offsetY
+      second: 0
+    - first:
+        name: _side
+      second: 0
+    - first:
+        name: _skewX
+      second: 0
+    - first:
+        name: _skewY
+      second: 0
+    - first:
+        name: g_bReceiveShadows
+      second: 0
+    - first:
+        name: g_bRenderBackfaces
+      second: 0
+    - first:
+        name: g_bUnlit
+      second: 0
+    - first:
+        name: g_bWorldAlignedTexture
+      second: 0
+    - first:
+        name: g_flCubeMapScalar
+      second: 1
+    - first:
+        name: g_flReflectanceBias
+      second: 0
+    - first:
+        name: g_flReflectanceMax
+      second: 1
+    - first:
+        name: g_flReflectanceMin
+      second: 0
+    - first:
+        name: g_flReflectanceScale
+      second: 1
+    m_Colors:
+    - first:
+        name: _Color
+      second: {r: 0, g: 0, b: 1, a: 1}
+    - first:
+        name: _EmissionColor
+      second: {r: 0, g: 0, b: 0, a: 1}
+    - first:
+        name: _EmissionColorUI
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _FontColor
+      second: {r: 0, g: 0, b: 0, a: 1}
+    - first:
+        name: _FontUV
+      second: {r: 0, g: 0, b: 0, a: 0}
+    - first:
+        name: _FontUV2
+      second: {r: 0, g: 0, b: 0, a: 0}
+    - first:
+        name: _FrontBack
+      second: {r: 0, g: 0, b: 0, a: 0}
+    - first:
+        name: _GlowColor
+      second: {r: 0.14705884, g: 0.09731835, b: 0.09731835, a: 1}
+    - first:
+        name: _GlowColorMult
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _HueVariation
+      second: {r: 1, g: 0.5, b: 0, a: 0.1}
+    - first:
+        name: _LeftRight
+      second: {r: 0, g: 0, b: 0, a: 0}
+    - first:
+        name: _LightColor
+      second: {r: 0.6397059, g: 0.6397059, b: 0.6397059, a: 1}
+    - first:
+        name: _MKGlowColor
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _MKGlowTexColor
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _MainColor
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _OutlineColor
+      second: {r: 0.98529404, g: 0.98529404, b: 0.98529404, a: 1}
+    - first:
+        name: _Size
+      second: {r: 0, g: 0, b: 0, a: 0}
+    - first:
+        name: _SpecColor
+      second: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - first:
+        name: _TintColor
+      second: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - first:
+        name: _UpDown
+      second: {r: 0, g: 0, b: 0, a: 0}
+    - first:
+        name: g_vWorldAlignedNormalTangentU
+      second: {r: -1, g: 0, b: 0, a: 0}
+    - first:
+        name: g_vWorldAlignedNormalTangentV
+      second: {r: 0, g: 0, b: 1, a: 0}
+    - first:
+        name: g_vWorldAlignedTextureNormal
+      second: {r: 0, g: 1, b: 0, a: 0}
+    - first:
+        name: g_vWorldAlignedTexturePosition
+      second: {r: 0, g: 0, b: 0, a: 0}
+    - first:
+        name: g_vWorldAlignedTextureSize
+      second: {r: 1, g: 1, b: 1, a: 0}

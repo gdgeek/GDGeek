@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 1ef60cb459f4349a8ad050713bad3176
+timeCreated: 1427888270
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 2
+  fontSize: 8
+  forceTextureCase: -2
+  characterSpacing: 1
+  characterPadding: 0
+  includeFontData: 0
+  use2xBehaviour: 0
+  fontNames: []
+  fallbackFontReferences: []
+  customCharacters: "\u4E00\u4E8C\u4E09\u56DB\u4E94\uFF0C\u6D4B\u8BD5\u4E0B"
+  fontRenderingMode: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,173 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!128 &12800000
+Font:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: XiaoDianZhen_copy
+  serializedVersion: 5
+  m_AsciiStartOffset: 0
+  m_Tracking: 1
+  m_LineSpacing: 8.28125
+  m_CharacterSpacing: 1
+  m_CharacterPadding: 0
+  m_ConvertCase: 3
+  m_DefaultMaterial: {fileID: 2100000, guid: 32f6cb55cb26b4688bc4eb7ea2110acd, type: 2}
+  m_CharacterRects:
+  - serializedVersion: 2
+    index: 19968
+    uv:
+      serializedVersion: 2
+      x: 0
+      y: 0.25
+      width: 0.21875
+      height: -0.25
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: -0.65625
+      width: 8
+      height: -7
+    advance: 8
+    flipped: 1
+  - serializedVersion: 2
+    index: 20108
+    uv:
+      serializedVersion: 2
+      x: 0.25
+      y: 0.25
+      width: 0.21875
+      height: -0.25
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: -0.65625
+      width: 8
+      height: -7
+    advance: 8
+    flipped: 1
+  - serializedVersion: 2
+    index: 19977
+    uv:
+      serializedVersion: 2
+      x: 0
+      y: 0.53125
+      width: 0.21875
+      height: -0.25
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: -0.65625
+      width: 8
+      height: -7
+    advance: 8
+    flipped: 1
+  - serializedVersion: 2
+    index: 22235
+    uv:
+      serializedVersion: 2
+      x: 0.5
+      y: 0.21875
+      width: 0.21875
+      height: -0.21875
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: -0.65625
+      width: 7
+      height: -7
+    advance: 8
+    flipped: 0
+  - serializedVersion: 2
+    index: 20116
+    uv:
+      serializedVersion: 2
+      x: 0.25
+      y: 0.53125
+      width: 0.21875
+      height: -0.25
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: -0.65625
+      width: 8
+      height: -7
+    advance: 8
+    flipped: 1
+  - serializedVersion: 2
+    index: 65292
+    uv:
+      serializedVersion: 2
+      x: 0
+      y: 0.78125
+      width: 0.21875
+      height: -0.21875
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: -0.65625
+      width: 7
+      height: -7
+    advance: 8
+    flipped: 0
+  - serializedVersion: 2
+    index: 27979
+    uv:
+      serializedVersion: 2
+      x: 0.5
+      y: 0.46875
+      width: 0.21875
+      height: -0.21875
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: -0.65625
+      width: 7
+      height: -7
+    advance: 8
+    flipped: 0
+  - serializedVersion: 2
+    index: 35797
+    uv:
+      serializedVersion: 2
+      x: 0.75
+      y: 0.25
+      width: 0.21875
+      height: -0.25
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: -0.65625
+      width: 8
+      height: -7
+    advance: 8
+    flipped: 1
+  - serializedVersion: 2
+    index: 19979
+    uv:
+      serializedVersion: 2
+      x: 0.25
+      y: 0.8125
+      width: 0.21875
+      height: -0.25
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: -0.65625
+      width: 8
+      height: -7
+    advance: 8
+    flipped: 1
+  m_Texture: {fileID: 2800000, guid: 946a965128a33459e8839a59b3698678, type: 3}
+  m_KerningValues: []
+  m_PixelScale: 0.1
+  m_FontData: 
+  m_FontSize: 8
+  m_Ascent: 6.65625
+  m_Descent: -1.625
+  m_DefaultStyle: 0
+  m_FontNames:
+  - XiaoDianZhen
+  m_FallbackFonts: []
+  m_FontRenderingMode: 1
