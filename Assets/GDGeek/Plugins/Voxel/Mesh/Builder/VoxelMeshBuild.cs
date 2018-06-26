@@ -15,7 +15,7 @@ namespace GDGeek
 			main.draw.vertices.Add (v);
 
 		}
-		private void addRect(VoxelProduct.Product main, Vector3 direction, VectorInt3 position, Color color){
+		private void addRect(VoxelProduct.Product main, Vector3 direction, Vector3Int position, Color color){
 			
 			Vector3 offset = new Vector3(position.x, position.y, position.z);
 
@@ -78,42 +78,42 @@ namespace GDGeek
 			this.addVertix (main, p3, color, direction.normalized);
 		}
 
-		private void build(VoxelProduct.Product main, int from, int to, Dictionary<VectorInt3, VoxelHandler> voxs, Dictionary<VectorInt3, VoxelHandler> all){
+		private void build(VoxelProduct.Product main, int from, int to, Dictionary<Vector3Int, VoxelHandler> voxs, Dictionary<Vector3Int, VoxelHandler> all){
 
-			List<VectorInt3> keys = new List<VectorInt3> (voxs.Keys); 
+			List<Vector3Int> keys = new List<Vector3Int> (voxs.Keys); 
 			for (int i = from; i < to; ++i) {
-				VectorInt3 key = keys [i];
+				Vector3Int key = keys [i];
 
 				VoxelHandler value = voxs [key];
-				if(!all.ContainsKey(key + new VectorInt3(0,  0, -1))){
+				if(!all.ContainsKey(key + new Vector3Int(0,  0, -1))){
 					addRect (main, Vector3.back, key, value.color);
 
 				}
 
-				if(!all.ContainsKey(key + new VectorInt3(0, 0, 1))){
+				if(!all.ContainsKey(key + new Vector3Int(0, 0, 1))){
 					addRect (main, Vector3.forward, key,  value.color);
 
 				}
 
-				if(!all.ContainsKey(key + new VectorInt3(0, 1, 0))){
+				if(!all.ContainsKey(key + new Vector3Int(0, 1, 0))){
 					addRect (main, Vector3.up, key, value.color);
 
 				}
 
 
-				if(!all.ContainsKey(key + new VectorInt3(0, -1, 0))){
+				if(!all.ContainsKey(key + new Vector3Int(0, -1, 0))){
 					addRect (main, Vector3.down, key, value.color);
 
 				}
 
 
-				if(!all.ContainsKey(key + new VectorInt3(1, 0, 0))){
+				if(!all.ContainsKey(key + new Vector3Int(1, 0, 0))){
 					addRect (main, Vector3.left, key, value.color);
 
 				}
 
 
-				if(!all.ContainsKey(key + new VectorInt3(-1, 0, 0))){
+				if(!all.ContainsKey(key + new Vector3Int(-1, 0, 0))){
 					addRect (main, Vector3.right, key,  value.color);
 
 				}
@@ -131,7 +131,7 @@ namespace GDGeek
 			//
 
 		}
-		public void build(VoxelProduct.Product main, Dictionary<VectorInt3, VoxelHandler> all){
+		public void build(VoxelProduct.Product main, Dictionary<Vector3Int, VoxelHandler> all){
 			main.draw = new VoxelDrawData ();
 			for (int i = 0; i < main.voxels.Count; i+=1000) {
 				build (main, i, Mathf.Min(i + 1000, main.voxels.Count), main.voxels, all);

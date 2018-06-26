@@ -12,9 +12,9 @@ namespace GDGeek{
 
         public static VoxelMeshData Struct2Data(VoxelStruct vs){
 			VoxelProduct product = new VoxelProduct();
-			VoxelData[] datas = vs.datas.ToArray ();
+			VoxelData[] datas = vs.toArray ();
 			Build.Run (new VoxelData2Point (datas), product);
-			Build.Run (new VoxelSplitSmall (new VectorInt3(8, 8, 8)), product);
+			Build.Run (new VoxelSplitSmall (new Vector3Int(8, 8, 8)), product);
 			Build.Run (new VoxelMeshBuild (), product);
 			Build.Run (new VoxelRemoveSameVertices (), product);
 			Build.Run (new VoxelRemoveFace (), product);
@@ -72,30 +72,44 @@ namespace GDGeek{
 
 
 			VoxelMeshData data = null;
-			if (Cache.HasKey (key)) {
+			/*if (Cache.HasKey (key)) {
 				string json = Encoding.UTF8.GetString(ZipFile.Decompressed((Cache.GetBytes (key))));
 				data = JsonUtility.FromJson<VoxelMeshData> (json);
-			}
+			}*/
 
 			return data;
 		}
 		public static void SaveToCache(string key, VoxelMeshData data){
-			string json = JsonUtility.ToJson (data);
-			GDGeek.Cache.SetBytes (key, GDGeek.ZipFile.Compression(Encoding.UTF8.GetBytes(json)));
+		//	string json = JsonUtility.ToJson (data);
+
+			//System.IO.FileStream ZipFile = System.IO.File.Create (zipedFile);
+			//ICSharpCode.SharpZipLib.Zip.ZipOutputStream zos = new ICSharpCode.SharpZipLib.Zip.ZipOutputStream();
+			//GDGeek.Cache.SetBytes (key, GDGeek.ZipFile.Compression(Encoding.UTF8.GetBytes(json)));
 			//GK7Zip.SetToFile (key, JsonUtility.ToJson(data));
 			//JsonUtility.ToJson(data)
 		}
 
+		static public GameObject CreateMesh(VoxelStruct vs, Transform parent, Material material, string name = "Voxel"){
+			var data = VoxelBuilderHelper.Struct2DataInCache (vs);
+			var mesh = VoxelBuilder.Data2Mesh (data);
+			var filter = VoxelBuilder.Mesh2Filter (mesh);
+			VoxelBuilder.FilterAddRenderer (filter, material);
+
+
+			filter.transform.SetParent (parent);
+			filter.transform.localEulerAngles = Vector3.zero;
+			filter.transform.localPosition = Vector3.zero;
+			filter.gameObject.layer = parent.gameObject.layer;
+			filter.name = name;
+			return filter.gameObject;
+		}
 		public static VoxelMeshData Struct2DataInCache(VoxelStruct vs){
 
-
-			Debug.Log ("!!!!");
 			string md5 = MagicaVoxelFormater.GetMd5 (vs);
 			VoxelMeshData data = LoadFromCache (GetKey(md5));
 
 			if(data == null){
-
-				Debug.Log ("???");
+				
 				data =  VoxelBuilder.Struct2Data(vs);
 				SaveToCache (GetKey(md5), data);
 			}

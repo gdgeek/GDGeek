@@ -3,10 +3,10 @@ using System.Collections;
 using System;
 
 namespace GDGeek{
-	public class UpateState : State, IUpdateable {
+	public class UpdateState : State, IUpdateable {
 		public delegate void Update(float d);
 		public event Update onUpdate;
-		public UpateState(){
+		public UpdateState(){
 			base.onStart += delegate() {
 				UpdateManager.Instance.onUpdate += this.update;
 			};
@@ -14,7 +14,8 @@ namespace GDGeek{
 				UpdateManager.Instance.onUpdate -= this.update;
 			};
 		}
-		public void update(float d){
+        
+        public void update(float d){
 			if (onUpdate != null && !isPause) {
 				onUpdate (d);
 			}

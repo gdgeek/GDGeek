@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GDGeek
 {
-    class ProState : UpateState, IPauseabel
+    class ProState : UpdateState, IPauseabel
     {
 
         public event Action onInit;

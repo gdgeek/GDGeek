@@ -24,7 +24,7 @@ namespace GDGeek{
 			//www.
 			return null;
 		}
-		public IEnumerator ReadFromUrl(string path,System.Action<BinaryReader> brret){
+		public IEnumerator ReadFromUrl(string path, System.Action<BinaryReader> brret){
 			//over = false;
 			#if UNITY_EDITOR || UNITY_IOS  
 			path = "file://" + path;  

@@ -5,7 +5,7 @@ This source file is part of GDGeek
     (Game Develop & Game Engine Extendable Kits)
 For the latest info, see http://gdgeek.com/
 
-Copyright (c) 2014-2015 GDGeek Software Ltd
+Copyright (c) 2014-2017 GDGeek Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -41,22 +41,22 @@ namespace GDGeek{
 	    
 	   // Transform mTrans;
 	    //  UITable mTable;
-	    private MaskableGraphic mGraphic = null;
+	    private Renderer renderer_ = null;
 	  //  private Text mText = null;
-	    public MaskableGraphic cachedGraphic { get { if (mGraphic == null) mGraphic = this.gameObject.GetComponent<MaskableGraphic>(); return mGraphic; } }
+	    public Renderer theRenderer { get { if (renderer_ == null) renderer_ = this.gameObject.GetComponent<Renderer>(); return renderer_; } }
 
-	    public float alpha { get { 
-	        
-	            return cachedGraphic.color.a; 
+	    public float alpha { get {
+
+                return theRenderer.sharedMaterial.color.a;
 	        
 	        } set { 
-	            Color color = cachedGraphic.color;
+	            Color color = theRenderer.sharedMaterial.color;
 	            color.a = value;
-	            cachedGraphic.color = color; 
+                theRenderer.sharedMaterial.color = color; 
 	        
 	        } }
 	    
-	    override protected void OnUpdate (float factor, bool isFinished)
+	    override protected void onUpdate (float factor, bool isFinished)
 	    {   
 	        alpha = from * (1f - factor) + to * factor;
 	        
@@ -68,13 +68,13 @@ namespace GDGeek{
 	    
 	    static public TweenAlpha Begin (GameObject go, float duration, float alpha)
 	    {
-	        TweenAlpha comp = Tween.Begin<TweenAlpha>(go, duration);
+            TweenAlpha comp = Tween.Begin<TweenAlpha>(go, duration);
 	        comp.from = comp.alpha;
 	        comp.to = alpha;
 	        
 	        if (duration <= 0f)
 	        {
-	            comp.Sample(1f, true);
+	            comp.sample(1f, true);
 	            comp.enabled = false;
 	        }
 	        return comp;

@@ -1,4 +1,6 @@
-﻿// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
 
 // ======================================================================================
 // File         : SpriteBlendClipping.shader
@@ -59,7 +61,7 @@ Shader "GDGeek/Voxel" {
 
 			vertexOutput vert ( vertexInput input ) {
 				vertexOutput output;
-				output.vertex = mul(UNITY_MATRIX_MVP, input.vertex);
+				output.vertex = UnityObjectToClipPos(input.vertex);
 				output.texcoord = TRANSFORM_TEX(input.texcoord, _MainTex);
 				
 				float3 viewDir = normalize(WorldSpaceViewDir(input.vertex));

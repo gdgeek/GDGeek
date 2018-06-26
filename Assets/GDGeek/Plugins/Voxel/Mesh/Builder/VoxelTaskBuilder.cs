@@ -10,9 +10,9 @@ namespace GDGeek{
 		public static Task Struct2Data(VoxelStruct vs, Struct2DataReturn ret){
 			TaskList tl = new TaskList ();
 			VoxelProduct product = new VoxelProduct();
-			VoxelData[] datas = vs.datas.ToArray ();
+			VoxelData[] datas = vs.toArray ();
 			tl.push(Build.Task (new VoxelData2Point (datas), product));
-			tl.push(Build.Task (new VoxelSplitSmall (new VectorInt3(8, 8, 8)), product));
+			tl.push(Build.Task (new VoxelSplitSmall (new Vector3Int(8, 8, 8)), product));
 			tl.push(Build.Task (new VoxelMeshBuild (), product));
 			tl.push(Build.Task (new VoxelRemoveSameVertices (), product));
 			tl.push(Build.Task (new VoxelRemoveFace (), product));

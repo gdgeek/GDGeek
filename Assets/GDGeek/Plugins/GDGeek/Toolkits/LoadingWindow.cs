@@ -11,7 +11,7 @@ This source file is part of GDGeek
     (Game Develop & Game Engine Extendable Kits)
 For the latest info, see http://gdgeek.com/
 
-Copyright (c) 2014-2015 GDGeek Software Ltd
+Copyright (c) 2014-2017 GDGeek Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -38,9 +38,7 @@ namespace GDGeek{
 		public CanvasGroup _cg = null;
 	
 		public float _wait = 0.3f;
-		public void Awake(){
-
-		}
+        
 		private Task packTask(Task task){
 			Task pack = new Task();
 			float allTime = 0.0f;

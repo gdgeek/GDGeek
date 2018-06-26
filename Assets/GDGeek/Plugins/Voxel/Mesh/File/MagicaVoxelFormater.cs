@@ -46,7 +46,7 @@ namespace GDGeek{
 			return s;
 		}
 
-		public static Color Bytes2Color(VectorInt4 v){
+		public static Color Bytes2Color(Vector4Int v){
 
 			Color c = new Color ();
 			c.r  = ((float)(v.x))/255.0f;
@@ -55,8 +55,8 @@ namespace GDGeek{
 			c.a  = ((float)(v.w))/255.0f;
 			return c;
 		}
-		public static VectorInt4 Color2Bytes(Color c){
-			VectorInt4 v;
+		public static Vector4Int Color2Bytes(Color c){
+			Vector4Int v;
 			v.x = Mathf.RoundToInt (c.r * 255.0f);
 			v.y = Mathf.RoundToInt (c.g * 255.0f);
 			v.z = Mathf.RoundToInt (c.b * 255.0f);
@@ -75,18 +75,18 @@ namespace GDGeek{
 			return point;
 		}
 
-		private static Point[] WritePoints(List<VoxelData> datas, VectorInt4[] palette){
+		private static Point[] WritePoints(VoxelStruct vs, Vector4Int[] palette){
 
-			Point[] points = new Point[datas.Count];
+			Point[] points = new Point[vs.count];
 
-			for (int i = 0; i < datas.Count; ++i) {
-				var data = datas [i];
+			for (int i = 0; i < vs.count; ++i) {
+				var data = vs.getData(i);
 				points[i] = new Point();
-				points[i].x = (byte)data.pos.x;
-				points[i].y = (byte)data.pos.z;
-				points[i].z = (byte)data.pos.y;
+				points[i].x = (byte)data.position.x;
+				points[i].y = (byte)data.position.z;
+				points[i].z = (byte)data.position.y;
 
-				Color color = datas [i].color;
+				Color color = data.color;
 				if (palette == null) {
 					ushort s = Color2Short (color);
 					for (int x = 0; x < palette_.Length; ++x) {
@@ -96,7 +96,7 @@ namespace GDGeek{
 						}
 					}
 				} else {
-					VectorInt4 v = Color2Bytes (color);
+					Vector4Int v = Color2Bytes (color);
 					for (int x = 0; x < palette.Length; ++x) {
 						if (palette [x] == v) {
 							points [i].i =  (byte)(x + 1);
@@ -108,15 +108,15 @@ namespace GDGeek{
 
 			return points;
 		}
-		private static List<VoxelData> CreateVoxelDatas(Point[] points, VectorInt4[] palette){
+		private static List<VoxelData> CreateVoxelDatas(Point[] points, Vector4Int[] palette){
 
 			List<VoxelData> datas = new List<VoxelData>();
 
 			for(int i=0; i < points.Length; ++i){
 				VoxelData data = new VoxelData();
-				data.pos.x = points[i].x;
-				data.pos.y = points[i].z;
-				data.pos.z = points[i].y;
+				data.position.x = points[i].x;
+				data.position.y = points[i].z;
+				data.position.z = points[i].y;
 
 				if(palette == null){
 
@@ -128,7 +128,7 @@ namespace GDGeek{
 
 
 				}else{
-					VectorInt4 v = palette[points[i].i - 1];
+					Vector4Int v = palette[points[i].i - 1];
 					data.color = Bytes2Color (v);;
 
 				}
@@ -141,46 +141,46 @@ namespace GDGeek{
 			return datas;
 
 		}
-		/*public static MagicaVoxel ReadFromFile(TextAsset file){
-			Stream sw = new MemoryStream(file.bytes);
-			System.IO.BinaryReader br = new System.IO.BinaryReader (sw); 
-			return ReadFromBinary(br);
-			
+	
+		public static MagicaVoxel ReadFromFile(TextAsset file){
+
+			System.IO.BinaryReader br = GDGeek.VoxelReader.ReadFromFile (file);
+			return MagicaVoxelFormater.ReadFromBinary (br);
+		
 		}
-		public static MagicaVoxel ReadFromUrl(string url){
-			return null;
-		}*/
 		public static MagicaVoxel ReadFromBinary(System.IO.BinaryReader br){
 
-			MagicaVoxel magic = new MagicaVoxel (new VoxelStruct ());
-
-			VectorInt4[] palette = null;
+		
+			Vector4Int[] palette = null;
 			Point[] points = null;
 			string vox = new string(br.ReadChars(4));
 			if (vox != "VOX ") {
-				return magic;
+				return new MagicaVoxel (new VoxelStruct ());;
 			}
 
 			int version = br.ReadInt32();
+			MagicaVoxel.Main main = null;
+			MagicaVoxel.Rgba rgba = null;
+			MagicaVoxel.Size size = null;
 
-			magic.version = version;
-			VectorInt3 box = new VectorInt3 ();
+			//magic.version = version;
+			Vector3Int box = new Vector3Int ();
 			bool subsample = false;
 
 
 			while (br.BaseStream.Position+12 < br.BaseStream.Length)
 			{
 				string name = new string(br.ReadChars(4));
-				int size = br.ReadInt32();
+				int length = br.ReadInt32();
 				int chunks = br.ReadInt32();
 
 
 				if (name == "MAIN") {
 
-					magic.main = new MagicaVoxel.Main ();
-					magic.main.size = size;
-					magic.main.name = name;
-					magic.main.chunks = chunks;
+					main = new MagicaVoxel.Main ();
+					main.size = length;
+					main.name = name;
+					main.chunks = chunks;
 				} else if (name == "SIZE") {
 
 					box.x = br.ReadInt32 ();
@@ -188,17 +188,17 @@ namespace GDGeek{
 					box.z = br.ReadInt32 ();
 
 
-					magic.size = new MagicaVoxel.Size ();
-					magic.size.size = 12;
-					magic.size.name = name;
-					magic.size.chunks = chunks;
-					magic.size.box = box;
+					size = new MagicaVoxel.Size ();
+					size.size = 12;
+					size.name = name;
+					size.chunks = chunks;
+					size.box = box;
 
 					if (box.x > 32 || box.y > 32) {
 						subsample = true;
 					}
 
-					br.ReadBytes (size - 4 * 3);
+					br.ReadBytes (length - 4 * 3);
 				} else if (name == "XYZI") {
 
 					int count = br.ReadInt32 ();
@@ -211,8 +211,8 @@ namespace GDGeek{
 
 
 
-					int n = size / 4;
-					palette = new VectorInt4[n];
+					int n = length / 4;
+					palette = new Vector4Int[n];
 					for (int i = 0; i < n; i++) {
 						byte r = br.ReadByte ();
 						byte g = br.ReadByte ();
@@ -224,37 +224,38 @@ namespace GDGeek{
 						palette [i].w = a;
 					}
 
-					magic.rgba = new MagicaVoxel.Rgba ();
-					magic.rgba.size = size;
-					magic.rgba.name = name;
-					magic.rgba.chunks = chunks;
-					magic.rgba.palette = palette;
+					rgba = new MagicaVoxel.Rgba ();
+					rgba.size = length;
+					rgba.name = name;
+					rgba.chunks = chunks;
+					rgba.palette = palette;
 				} else{
-					if (br.BaseStream.Position + size >= br.BaseStream.Length) {
+					if (br.BaseStream.Position + length >= br.BaseStream.Length) {
 						break;
 					} else {
-						br.ReadBytes(size);  
+						br.ReadBytes(length);  
 					}
 				}
 			}
-			magic.vs.datas = CreateVoxelDatas(points, palette);
-			return magic;
+			return new MagicaVoxel ( new VoxelStruct(CreateVoxelDatas(points, palette)), main, size,rgba, version);
+
 
 		}
 		public static string GetMd5(VoxelStruct vs){
-          
-			MemoryStream memoryStream = new MemoryStream ();
-			BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
-			WriteToBinary (vs, binaryWriter);
-			byte[] data = memoryStream.GetBuffer();
-			MD5 md5 = new MD5CryptoServiceProvider();
-			byte[] result = md5.ComputeHash(data);
-			string fileMD5 = "";
-			foreach (byte b in result)
-			{
-				fileMD5 += Convert.ToString(b, 16);
-			}
-			return fileMD5; 
+            string fileMD5 = "";
+            /*
+              MemoryStream memoryStream = new MemoryStream ();
+              BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
+              WriteToBinary (vs, binaryWriter);
+              byte[] data = memoryStream.GetBuffer();
+              MD5 md5 = new MD5CryptoServiceProvider();
+              byte[] result = md5.ComputeHash(data);
+
+              foreach (byte b in result)
+              {
+                  fileMD5 += Convert.ToString(b, 16);
+              }*/
+            return fileMD5; 
 		}
 		public static void WriteToBinary(VoxelStruct vs, System.IO.BinaryWriter bw){
 
@@ -289,14 +290,14 @@ namespace GDGeek{
 
 				for (int i = 0; i < length; i++)
 				{
-					VectorInt4 c = magic.rgba.palette [i];
+					Vector4Int c = magic.rgba.palette [i];
 					bw.Write ((byte)(c.x));
 					bw.Write ((byte)(c.y));
 					bw.Write ((byte)(c.z));
 					bw.Write ((byte)(c.w));
 				}
 			}
-			Point[] points = WritePoints (vs.datas, magic.rgba.palette);
+			Point[] points = WritePoints (vs, magic.rgba.palette);
 			bw.Write ("XYZI".ToCharArray ());
 
 			bw.Write ((int)(points.Length * 4) + 4);

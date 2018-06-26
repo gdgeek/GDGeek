@@ -1,4 +1,6 @@
-﻿Shader "Hidden/MKGlowFastBlur"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Hidden/MKGlowFastBlur"
 {
 	Properties 
 	{
@@ -45,7 +47,7 @@
 				float offX = _MainTex_TexelSize.x * _Shift;
 				float offY = _MainTex_TexelSize.y * _Shift;
 
-				o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
+				o.pos = UnityObjectToClipPos (v.vertex);
 				float2 uv = v.texcoord;
 			
 				o.uv[0].xy = uv + float2( offX, offY);

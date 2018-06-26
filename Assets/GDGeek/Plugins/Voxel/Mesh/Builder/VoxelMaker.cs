@@ -21,6 +21,10 @@ namespace GDGeek{
 				_material = UnityEditor.AssetDatabase.LoadAssetAtPath<Material>("Assets/GdGeek/Media/Voxel/Material/VoxelMesh.mat");
 			}
 
+			if(_material == null){
+				_material = UnityEditor.AssetDatabase.LoadAssetAtPath<Material>("Assets/Geek/GdGeek/Media/Voxel/Material/VoxelMesh.mat");
+			}
+
 			#endif
 		}
 		public static Task BuildingTask(GameObject obj, System.IO.BinaryReader br, Material material, int reversal = 0){
@@ -31,11 +35,10 @@ namespace GDGeek{
         {
 
 			MagicaVoxel magica = MagicaVoxelFormater.ReadFromBinary (br);
-            VoxelStruct vs = VoxelStruct.Reversal(magica.vs, reversal);// VoxelBuilder.Reversal(magica.vs, reversal);
+			VoxelStruct vs = VoxelStruct.Reversal(magica.structure, reversal);// VoxelBuilder.Reversal(magica.vs, reversal);
 			var data = VoxelBuilderHelper.Struct2DataInCache (vs);
 			var mesh = VoxelBuilder.Data2Mesh (data);
 			var filter = VoxelBuilder.Mesh2Filter (mesh);
-
 			VoxelBuilder.FilterAddRenderer (filter, material);
 
 

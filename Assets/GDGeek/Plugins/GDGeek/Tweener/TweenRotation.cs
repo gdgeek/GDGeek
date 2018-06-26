@@ -5,7 +5,7 @@ This source file is part of GDGeek
     (Game Develop & Game Engine Extendable Kits)
 For the latest info, see http://gdgeek.com/
 
-Copyright (c) 2014-2015 GDGeek Software Ltd
+Copyright (c) 2014-2017 GDGeek Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -35,17 +35,17 @@ namespace GDGeek{
 
 	public class TweenRotation : Tween
 	{
-		public Vector3 from;
-		public Vector3 to;
+		public Quaternion from;
+		public Quaternion to;
 
 		Transform mTrans;
 
 		public Transform cachedTransform { get { if (mTrans == null) mTrans = transform; return mTrans; } }
 		public Quaternion rotation { get { return cachedTransform.localRotation; } set { cachedTransform.localRotation = value; } }
 
-		override protected void OnUpdate (float factor, bool isFinished)
+		override protected void onUpdate (float factor, bool isFinished)
 		{
-			cachedTransform.localRotation = Quaternion.Slerp(Quaternion.Euler(from), Quaternion.Euler(to), factor);
+			cachedTransform.localRotation = Quaternion.Slerp(from, to, factor);
 		}
 
 		/// <summary>
@@ -55,12 +55,12 @@ namespace GDGeek{
 		static public TweenRotation Begin (GameObject go, float duration, Quaternion rot)
 		{
 			TweenRotation comp = Tween.Begin<TweenRotation>(go, duration);
-			comp.from = comp.rotation.eulerAngles;
-			comp.to = rot.eulerAngles;
+			comp.from = comp.rotation;
+			comp.to = rot;
 
 			if (duration <= 0f)
 			{
-				comp.Sample(1f, true);
+				comp.sample(1f, true);
 				comp.enabled = false;
 			}
 			return comp;

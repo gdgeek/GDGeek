@@ -1,4 +1,6 @@
-﻿// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
 
 
 
@@ -71,7 +73,7 @@ Shader "GDGeek/VoxelNormal" {
 
 			vertexOutput vert ( vertexInput input ) {
 				vertexOutput output;
-				output.vertex = mul(UNITY_MATRIX_MVP, input.vertex);
+				output.vertex = UnityObjectToClipPos(input.vertex);
 				output.uv_light = TRANSFORM_TEX(input.uv_light, _MainTex);
 				output.uv_shadow = TRANSFORM_TEX(input.uv_shadow, _MainTex);
 				

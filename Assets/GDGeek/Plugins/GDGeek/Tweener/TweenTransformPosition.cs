@@ -10,7 +10,7 @@ namespace GDGeek{
 		public Transform cachedTransform { get { if (mTrans == null) mTrans = transform; return mTrans; } }
 		public Vector3 position { get { return cachedTransform.position; } set { cachedTransform.position = value; } }
 
-		override protected void OnUpdate (float factor, bool isFinished) { cachedTransform.position = from * (1f - factor) + to.position * factor; }
+		override protected void onUpdate (float factor, bool isFinished) { cachedTransform.position = from * (1f - factor) + to.position * factor; }
 
 		/// <summary>
 		/// Start the tweening operation.
@@ -24,7 +24,7 @@ namespace GDGeek{
 
 			if (duration <= 0f)
 			{
-				comp.Sample(1f, true);
+				comp.sample(1f, true);
 				comp.enabled = false;
 			}
 			return comp;

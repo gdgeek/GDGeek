@@ -11,13 +11,13 @@ namespace GDGeek{
 		public struct Packed
 		{
 			public VoxelStruct vs;
-			public VectorInt3 offset;
+			public Vector3Int offset;
 
 		}
-		private Dictionary<VectorInt3, VoxelData> dictionary_ = new Dictionary<VectorInt3, VoxelData>();
+		private Dictionary<Vector3Int, VoxelData> dictionary_ = new Dictionary<Vector3Int, VoxelData>();
 		private List<Packed> list_ = new List<Packed>();
 
-		public void addVoxel(VoxelStruct vs, VectorInt3 offset){
+		public void addVoxel(VoxelStruct vs, Vector3Int offset){
 			Packed packed = new Packed ();
 			packed.vs = vs;
 			packed.offset = offset;
@@ -27,20 +27,20 @@ namespace GDGeek{
 			dictionary_.Clear ();
 		}
 		public void readIt(Packed packed){
-			for (int i = 0; i < packed.vs.datas.Count; ++i) {
-				dictionary_ [packed.vs.datas [i].pos +packed.offset ] = packed.vs.datas [i];
+			for (int i = 0; i < packed.vs.count; ++i) {
+				dictionary_ [packed.vs.getData(i).position +packed.offset ] = packed.vs.getData(i);
 			}
 
 		}
 		public List<VoxelData> getDatas(){
 			List<VoxelData> datas = new List<VoxelData>();
 			int i = 0;
-			foreach(KeyValuePair<VectorInt3, VoxelData> item in dictionary_){
+			foreach(KeyValuePair<Vector3Int, VoxelData> item in dictionary_){
 				VoxelData data = new VoxelData ();
 				data.color = item.Value.color;
-				data.pos.x = item.Key.x;
-				data.pos.y = item.Key.y;
-				data.pos.z = item.Key.z;
+				data.position.x = item.Key.x;
+				data.position.y = item.Key.y;
+				data.position.z = item.Key.z;
 
 //				data.id = i;
 				datas.Add (data);
@@ -62,8 +62,8 @@ namespace GDGeek{
 //				Debug.Break ();
 				this.readIt(p);
 			}
-			VoxelStruct vs = new VoxelStruct();
-			vs.datas = this.getDatas ();
+			VoxelStruct vs = new VoxelStruct(this.getDatas ());
+			//vs.init();
 			return vs;
 
 		}

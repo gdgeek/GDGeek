@@ -5,20 +5,20 @@ using System.Collections.Generic;
 namespace GDGeek
 {
 	public class VoxelSplitSmall {
-		private VectorInt3 box_;
+		private Vector3Int box_;
 	
-		public VoxelSplitSmall(VectorInt3 box){
+		public VoxelSplitSmall(Vector3Int box){
 			box_ = box;
 		}
 		public void build(VoxelProduct product){
-			Dictionary<VectorInt3, Dictionary<VectorInt3, VoxelHandler> > dict = new Dictionary<VectorInt3, Dictionary<VectorInt3, VoxelHandler> >();
+			Dictionary<Vector3Int, Dictionary<Vector3Int, VoxelHandler> > dict = new Dictionary<Vector3Int, Dictionary<Vector3Int, VoxelHandler> >();
 			foreach (var kv in product.main.voxels) {
-				VectorInt3 offset = new VectorInt3 ();
+				Vector3Int offset = new Vector3Int ();
 				offset.x = kv.Key.x/ box_.x;
 				offset.y = kv.Key.y/ box_.y;
 				offset.z = kv.Key.z/ box_.z;
 				if (!dict.ContainsKey (offset)) {
-					dict [offset] = new Dictionary<VectorInt3, VoxelHandler> ();
+					dict [offset] = new Dictionary<Vector3Int, VoxelHandler> ();
 				}
 				dict [offset].Add (kv.Key, kv.Value);
 			}

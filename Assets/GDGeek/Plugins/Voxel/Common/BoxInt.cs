@@ -5,7 +5,7 @@ using System;
 namespace GDGeek{
 	[Serializable]
 	public struct BoxInt {
-		public VectorInt3 center;
-		public VectorInt3 size;
+		public Vector3Int center;
+		public Vector3Int size;
 	}
 }

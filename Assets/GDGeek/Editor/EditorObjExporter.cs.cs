@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System;
+using UnityEditor.SceneManagement;
 
 struct ObjMaterial
 {
@@ -69,7 +70,7 @@ public class EditorObjExporter : ScriptableObject
 				objMaterial.name = mats[material].name;
 
 				if (mats[material].mainTexture)
-					objMaterial.textureName = EditorUtility.GetAssetPath(mats[material].mainTexture);
+					objMaterial.textureName = AssetDatabase.GetAssetPath(mats[material].mainTexture);
 				else
 					objMaterial.textureName = null;
 
@@ -208,7 +209,7 @@ public class EditorObjExporter : ScriptableObject
 		return true;
 	}
 
-	[MenuItem ("Custom/Export/Export all MeshFilters in selection to separate OBJs")]
+	[UnityEditor.MenuItem ("Custom/Export/Export all MeshFilters in selection to separate OBJs")]
 	static void ExportSelectionToSeparate()
 	{
 		if (!CreateTargetFolder())
@@ -241,7 +242,7 @@ public class EditorObjExporter : ScriptableObject
 			EditorUtility.DisplayDialog("Objects not exported", "Make sure at least some of your selected objects have mesh filters!", "");
 	}
 
-	[MenuItem ("Custom/Export/Export whole selection to single OBJ")]
+	[UnityEditor.MenuItem ("Custom/Export/Export whole selection to single OBJ")]
 	static void ExportWholeSelectionToSingle()
 	{
 		if (!CreateTargetFolder())
@@ -280,7 +281,7 @@ public class EditorObjExporter : ScriptableObject
 				mf[i] = (MeshFilter)mfList[i];
 			}
 
-			string filename = EditorApplication.currentScene + "_" + exportedObjects;
+			string filename = EditorSceneManager.GetActiveScene().name + "_" + exportedObjects;
 
 			int stripIndex = filename.LastIndexOf('/');//FIXME: Should be Path.PathSeparator
 
@@ -298,7 +299,7 @@ public class EditorObjExporter : ScriptableObject
 
 
 
-	[MenuItem ("Custom/Export/Export each selected to single OBJ")]
+	[UnityEditor.MenuItem ("Custom/Export/Export each selected to single OBJ")]
 	static void ExportEachSelectionToSingle()
 	{
 		if (!CreateTargetFolder())

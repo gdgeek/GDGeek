@@ -68,9 +68,10 @@ namespace GDGeek{
 		private void readVoxFile(TextAsset voxFile){
 
 			Stream sw = new MemoryStream(voxFile.bytes);
-			System.IO.BinaryReader br = new System.IO.BinaryReader (sw); 
-			MagicaVoxel magic = null;
-			var vs =  MagicaVoxelFormater.ReadFromBinary (br).vs;
+			System.IO.BinaryReader br = new System.IO.BinaryReader (sw);
+            //br.re
+           // MagicaVoxel magic = null;
+			var vs =  MagicaVoxelFormater.ReadFromBinary (br).structure;
 			SplitVoxel split = new SplitVoxel (vs);
 			for (int i = 0; i < _boxes.Count; ++i) {
 				split.addBox (_boxes[i]);
@@ -99,27 +100,27 @@ namespace GDGeek{
 
 					_boxes = new List<SplitVoxel.Box> ();
 
-					_boxes.Add(new SplitVoxel.Box(new VectorInt3(0,54,0), new VectorInt3(16,16,3)));//3
-					_boxes.Add(new SplitVoxel.Box(new VectorInt3(0,0,0), new VectorInt3(16,16,3)));//0
-					_boxes.Add(new SplitVoxel.Box(new VectorInt3(0,34,0), new VectorInt3(16,16,3)));//2
-					_boxes.Add(new SplitVoxel.Box(new VectorInt3(0,17,0), new VectorInt3(16,16,3)));//1
+					_boxes.Add(new SplitVoxel.Box(new Vector3Int(0,54,0), new Vector3Int(16,16,3)));//3
+					_boxes.Add(new SplitVoxel.Box(new Vector3Int(0,0,0), new Vector3Int(16,16,3)));//0
+					_boxes.Add(new SplitVoxel.Box(new Vector3Int(0,34,0), new Vector3Int(16,16,3)));//2
+					_boxes.Add(new SplitVoxel.Box(new Vector3Int(0,17,0), new Vector3Int(16,16,3)));//1
 
 
-					_boxes.Add(new SplitVoxel.Box(new VectorInt3(54,54,0), new VectorInt3(16,16,3)));//15
-					_boxes.Add(new SplitVoxel.Box(new VectorInt3(54,0,0), new VectorInt3(16,16,3)));//12
-					_boxes.Add(new SplitVoxel.Box(new VectorInt3(54,34,0), new VectorInt3(16,16,3)));//14
-					_boxes.Add(new SplitVoxel.Box(new VectorInt3(54,17,0), new VectorInt3(16,16,3)));//13
+					_boxes.Add(new SplitVoxel.Box(new Vector3Int(54,54,0), new Vector3Int(16,16,3)));//15
+					_boxes.Add(new SplitVoxel.Box(new Vector3Int(54,0,0), new Vector3Int(16,16,3)));//12
+					_boxes.Add(new SplitVoxel.Box(new Vector3Int(54,34,0), new Vector3Int(16,16,3)));//14
+					_boxes.Add(new SplitVoxel.Box(new Vector3Int(54,17,0), new Vector3Int(16,16,3)));//13
 
-					_boxes.Add(new SplitVoxel.Box(new VectorInt3(20,54,0), new VectorInt3(16,16,3)));//7
-					_boxes.Add(new SplitVoxel.Box(new VectorInt3(20,0,0), new VectorInt3(16,16,3)));//4
-					_boxes.Add(new SplitVoxel.Box(new VectorInt3(20,34,0), new VectorInt3(16,16,3)));//6
-					_boxes.Add(new SplitVoxel.Box(new VectorInt3(20,17,0), new VectorInt3(16,16,3)));//5
+					_boxes.Add(new SplitVoxel.Box(new Vector3Int(20,54,0), new Vector3Int(16,16,3)));//7
+					_boxes.Add(new SplitVoxel.Box(new Vector3Int(20,0,0), new Vector3Int(16,16,3)));//4
+					_boxes.Add(new SplitVoxel.Box(new Vector3Int(20,34,0), new Vector3Int(16,16,3)));//6
+					_boxes.Add(new SplitVoxel.Box(new Vector3Int(20,17,0), new Vector3Int(16,16,3)));//5
 
 
-					_boxes.Add(new SplitVoxel.Box(new VectorInt3(37,54,0), new VectorInt3(16,16,3)));//11
-					_boxes.Add(new SplitVoxel.Box(new VectorInt3(37,0,0), new VectorInt3(16,16,3)));//8
-					_boxes.Add(new SplitVoxel.Box(new VectorInt3(37,34,0), new VectorInt3(16,16,3)));//10
-					_boxes.Add(new SplitVoxel.Box(new VectorInt3(37,17,0), new VectorInt3(16,16,3)));//9
+					_boxes.Add(new SplitVoxel.Box(new Vector3Int(37,54,0), new Vector3Int(16,16,3)));//11
+					_boxes.Add(new SplitVoxel.Box(new Vector3Int(37,0,0), new Vector3Int(16,16,3)));//8
+					_boxes.Add(new SplitVoxel.Box(new Vector3Int(37,34,0), new Vector3Int(16,16,3)));//10
+					_boxes.Add(new SplitVoxel.Box(new Vector3Int(37,17,0), new Vector3Int(16,16,3)));//9
 
 
 

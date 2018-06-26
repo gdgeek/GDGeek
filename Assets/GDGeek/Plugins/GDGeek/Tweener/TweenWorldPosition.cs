@@ -5,7 +5,7 @@ This source file is part of GDGeek
     (Game Develop & Game Engine Extendable Kits)
 For the latest info, see http://gdgeek.com/
 
-Copyright (c) 2014-2015 GDGeek Software Ltd
+Copyright (c) 2014-2017 GDGeek Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -42,7 +42,7 @@ namespace GDGeek{
 		public Transform cachedTransform { get { if (mTrans == null) mTrans = transform; return mTrans; } }
 		public Vector3 position { get { return cachedTransform.position; } set { cachedTransform.position = value; } }
 		
-		override protected void OnUpdate (float factor, bool isFinished) { cachedTransform.position = from * (1f - factor) + to * factor; }
+		override protected void onUpdate (float factor, bool isFinished) { cachedTransform.position = from * (1f - factor) + to * factor; }
 		
 		/// <summary>
 		/// Start the tweening operation.
@@ -56,7 +56,7 @@ namespace GDGeek{
 			
 			if (duration <= 0f)
 			{
-				comp.Sample(1f, true);
+				comp.sample(1f, true);
 				comp.enabled = false;
 			}
 			return comp;

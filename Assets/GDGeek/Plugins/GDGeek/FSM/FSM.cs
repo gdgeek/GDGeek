@@ -5,7 +5,7 @@ This source file is part of GDGeek
     (Game Develop & Game Engine Extendable Kits)
 For the latest info, see http://gdgeek.com/
 
-Copyright (c) 2014-2015 GDGeek Software Ltd
+Copyright (c) 2014-2017 GDGeek Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +31,8 @@ THE SOFTWARE.
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
+
 namespace GDGeek
 {
     public class FSM
@@ -297,8 +299,10 @@ namespace GDGeek
 
         public void post(string msg, object obj)
         {
-
             this.postEvent(new FSMEvent(msg, obj));
+        }
+        public void post(FSMEvent evt) {
+            postEvent(evt);
         }
         public void postEvent(FSMEvent evt)
         {
@@ -326,6 +330,11 @@ namespace GDGeek
                     break;
                 }
             }
+        }
+
+        internal void addState(string v1, object v2)
+        {
+            throw new NotImplementedException();
         }
     }
 }

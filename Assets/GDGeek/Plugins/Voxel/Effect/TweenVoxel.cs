@@ -6,7 +6,7 @@ This source file is part of GDGeek
     (Game Develop & Game Engine Extendable Kits)
 For the latest info, see http://gdgeek.com/
 
-Copyright (c) 2014-2015 GDGeek Software Ltd
+Copyright (c) 2014-2017 GDGeek Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -51,7 +51,7 @@ namespace GDGeek{
 
 			} }
 
-		override protected void OnUpdate (float factor, bool isFinished){
+		override protected void onUpdate (float factor, bool isFinished){
 			property = from.mul(1f - factor).add(to.mul(factor));
 		}
 
@@ -67,7 +67,7 @@ namespace GDGeek{
 
 			if (duration <= 0f)
 			{
-				tween.Sample(1f, true);
+				tween.sample(1f, true);
 				tween.enabled = false;
 			}
 			return tween;

@@ -13,13 +13,13 @@ namespace GDGeek{
 			{
 				return _min.GetHashCode() ^ _max.GetHashCode();
 			}
-			public  VectorInt3 _min;
-			public  VectorInt3 _max;
-			public Box(VectorInt3 min, VectorInt3 size){
+			public  Vector3Int _min;
+			public  Vector3Int _max;
+			public Box(Vector3Int min, Vector3Int size){
 				_min = min;
 				_max = min + size;
 			}
-			public bool contain(VectorInt3 pos){
+			public bool contain(Vector3Int pos){
 				if (pos.x >= _min.x &&
 					pos.y >= _min.y &&
 					pos.z >= _min.z &&
@@ -46,7 +46,7 @@ namespace GDGeek{
 		public void addBoxes(List<Box> boxes){
 			list_ = boxes;
 		}
-		public void addBox(VectorInt3 min, VectorInt3 size){
+		public void addBox(Vector3Int min, Vector3Int size){
 
 			list_.Add (new Box (min, size));
 		}
@@ -57,12 +57,13 @@ namespace GDGeek{
 				vs [i] = new VoxelStruct ();
 			}
 
-			for (int i = 0; i < vs_.datas.Count; ++i) {
+			for (int i = 0; i < vs_.count; ++i) {
 
+				var data = vs_.getData (i);
 				for (int j = 0; j < vs.Length; ++j) {
-
-					if(list_ [j].contain (vs_.datas[i].pos)){
-						vs [j].datas.Add (vs_.datas[i]);
+					
+					if(list_ [j].contain (data.position)){
+						vs [j].addData (data);
 					}
 					/*//vs[j]*/
 				}

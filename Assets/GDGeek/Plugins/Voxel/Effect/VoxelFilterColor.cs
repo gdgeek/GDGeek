@@ -14,7 +14,7 @@ public class VoxelFilterColor : VoxelFilter {
 	}
 	public float _deviation = 0.01f;
 	public Mapped[] _colors;
-	private Dictionary<Color, Mapped> map_ = null;
+	//private Dictionary<Color, Mapped> map_ = null;
 
 
 	private bool colorComp(Color ac, Color bc, float distance) 

@@ -54,7 +54,7 @@ namespace GDGeek{
 		}
 
 
-		static public Task Task(VoxelMeshBuild vmb, VoxelProduct.Product main, Dictionary<VectorInt3, VoxelHandler> all){
+		static public Task Task(VoxelMeshBuild vmb, VoxelProduct.Product main, Dictionary<Vector3Int, VoxelHandler> all){
 			Task task = new Task ();
 			TaskManager.PushFront (task, delegate {
 

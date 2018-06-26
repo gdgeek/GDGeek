@@ -15,7 +15,7 @@ namespace GDGeek{
 
 			GameObject cube = GameObject.CreatePrimitive (PrimitiveType.Cube);
 			cube.transform.parent = this.transform;
-			Voxel vox = cube.AddComponent<Voxel> ();
+			cube.AddComponent<Voxel> ();
 			MeshRenderer renderer = cube.GetComponent<MeshRenderer> ();
 
 			renderer.material = _material;

@@ -1,4 +1,6 @@
-﻿Shader "Hidden/MKGlowCompose" 
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Hidden/MKGlowCompose" 
 {
 	Properties 
 	{
@@ -39,7 +41,7 @@
 			Output vert (Input i)
 			{
 				Output o;
-				o.pos = mul (UNITY_MATRIX_MVP, i.vertex);
+				o.pos = UnityObjectToClipPos (i.vertex);
 				o.uv = i.texcoord;
 				return o;
 			}
@@ -77,7 +79,7 @@
 			Output vert (Input i)
 			{
 				Output o;
-				o.pos = mul (UNITY_MATRIX_MVP, i.vertex);
+				o.pos = UnityObjectToClipPos (i.vertex);
 				o.uv = i.texcoord;
 				return o;
 			}

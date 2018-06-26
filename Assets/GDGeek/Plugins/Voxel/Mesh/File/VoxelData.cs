@@ -6,12 +6,12 @@ namespace GDGeek{
 	[Serializable]
 	public struct VoxelData{
 		
-		public VoxelData(VectorInt3 p, Color c){
-			pos = p;
+			public VoxelData(Vector3Int p, Color c){
+			position = p;
 			color = c;
 
 		}
-		public VectorInt3 pos;
+		public Vector3Int position;
 		public Color color;
 
 	}

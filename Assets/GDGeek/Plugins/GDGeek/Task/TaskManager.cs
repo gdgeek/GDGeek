@@ -5,7 +5,7 @@ This source file is part of GDGeek
     (Game Develop & Game Engine Extendable Kits)
 For the latest info, see http://gdgeek.com/
 
-Copyright (c) 2014-2015 GDGeek Software Ltd
+Copyright (c) 2014-2017 GDGeek Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -29,31 +29,30 @@ THE SOFTWARE.
 
 using UnityEngine;
 using System.Collections;
+using System;
 
 namespace GDGeek{
 
 	public class TaskManager : Singleton<TaskManager> {
 
 		//public TaskFactories _factories = null;
-		public TaskRunner _runner = null;
+		//public TaskRunner _runner = null;
 		
 		private TaskRunner partRunner_  = null;
-		//private static TaskManager instance_ = null; 
-		//private static Hashtable reserve_ = new Hashtable();
-		
+
 		public TaskRunner partRunner{
 			set{this.partRunner_ = value as TaskRunner;}
 		}
-		
-		void Awake(){
 
+        protected void Awake(){
+           // base.Awake();
 			//TaskManager.instance_ = this;
-			if (_runner == null) {
+			/*if (_runner == null) {
 				_runner = this.gameObject.GetComponent<TaskRunner>();			
 			}
 			if (_runner == null) {
 				_runner = this.gameObject.AddComponent<TaskRunner>();	
-			}
+			}*/
 		}
 
 		public static TaskManager GetInstance(){
@@ -61,27 +60,52 @@ namespace GDGeek{
 			return Singleton<TaskManager>.Instance;
 		}
 
-		public TaskRunner globalRunner{
-			get{return _runner;}
-		}
-		
-		public TaskRunner runner{
+		public ITaskRunner globalRunner{
 			get{
-					if(partRunner_ != null){
-						return partRunner_;
-					}
-					return _runner;
+				TaskRunner runner = this.gameObject.AskComponent<TaskRunner> ();
+				return runner;
+			}
+		}
+
+#if UNITY_EDITOR
+		public ITaskRunner editorRunner{
+			get{
+				TaskRunnerInEditor runner = this.gameObject.AskComponent<TaskRunnerInEditor> ();
+				return runner;
+			}
+		}
+#endif
+		public ITaskRunner runner{
+		get{
+#if UNITY_EDITOR
+				if(!Application.isPlaying){
+					return editorRunner;
 				}
+
+#endif
+				if(partRunner_ != null){
+					return partRunner_;
+				}
+				return globalRunner;
+			}
 
 		}
 		
-		public static void AddIsOver(Task task, TaskIsOver func){
+		public static void AddOrIsOver(Task task, TaskIsOver func){
 			TaskIsOver oIsOver = task.isOver;
 			task.isOver = delegate(){
 				return (oIsOver() || func());
 			};
 		}
-		public static void AddUpdate(Task task, TaskUpdate func){
+
+        public static void AddAndIsOver(Task task, TaskIsOver func)
+        {
+            TaskIsOver oIsOver = task.isOver;
+            task.isOver = delegate () {
+                return (oIsOver() && func());
+            };
+        }
+        public static void AddUpdate(Task task, TaskUpdate func){
 			TaskUpdate update = task.update;
 			task.update = delegate(float d){
 				update(d);
@@ -108,5 +132,5 @@ namespace GDGeek{
 				oInit();
 			};
 		}
-	}
+    }
 }

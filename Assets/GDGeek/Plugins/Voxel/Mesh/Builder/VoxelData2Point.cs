@@ -27,7 +27,7 @@ namespace GDGeek
 
 			VoxelHandler handler = new VoxelHandler();
 
-			handler.position = new VectorInt3(data.pos.x, data.pos.y, data.pos.z);
+			handler.position = new Vector3Int(data.position.x, data.position.y, data.position.z);
 			handler.color = data.color;
 //			handler.id = data.id;
 
@@ -45,7 +45,7 @@ namespace GDGeek
 
 			product.min = new Vector3(999, 999, 999);
 			product.max = new Vector3(-999, -999, -999);
-			product.main.voxels = new Dictionary<VectorInt3, VoxelHandler>();
+			product.main.voxels = new Dictionary<Vector3Int, VoxelHandler>();
 
 //			Debug.Log (product.main.voxels.Count);
 			for (int i=0; i<data_.Length; ++i) {
@@ -53,12 +53,12 @@ namespace GDGeek
 				var min = product.min;
 				var max = product.max;
 
-				min.x = Mathf.Min (min.x, d.pos.x);
-				min.y = Mathf.Min (min.y, d.pos.y);
-				min.z = Mathf.Min (min.z, d.pos.z);
-				max.x = Mathf.Max (max.x, d.pos.x);
-				max.y = Mathf.Max (max.y, d.pos.y);
-				max.z = Mathf.Max (max.z, d.pos.z);
+				min.x = Mathf.Min (min.x, d.position.x);
+				min.y = Mathf.Min (min.y, d.position.y);
+				min.z = Mathf.Min (min.z, d.position.z);
+				max.x = Mathf.Max (max.x, d.position.x);
+				max.y = Mathf.Max (max.y, d.position.y);
+				max.z = Mathf.Max (max.z, d.position.z);
 
 
 				product.min = min;
@@ -68,9 +68,7 @@ namespace GDGeek
 			for (int i=0; i<data_.Length; ++i) {
 
 				VoxelHandler handler = data2Handler(data_[i]);
-//				Debug.Log (handler.position);
-			//	ifproduct.main.voxels.ContainsKey(handler.position)
-				product.main.voxels.Add (handler.position, handler);	
+				product.main.voxels[handler.position] = handler;	
 
 			}
 

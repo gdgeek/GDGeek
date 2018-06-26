@@ -5,7 +5,7 @@ This source file is part of GDGeek
     (Game Develop & Game Engine Extendable Kits)
 For the latest info, see http://gdgeek.com/
 
-Copyright (c) 2014-2015 GDGeek Software Ltd
+Copyright (c) 2014-2017 GDGeek Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -30,24 +30,15 @@ using UnityEngine;
 using System.Collections;
 namespace GDGeek{
 
-	public class Task{
+    /// <summary>
+    /// 
+    /// </summary>
+    public class Task{
 
-		//public delegate void Init();
-		//public delegate void EvtAction(FSMEvent evt);
-		//public delegate string StateAction(FSMEvent evt);
-
-		//private Dictionary<string, StateAction> actionMap_ = new Dictionary<string,StateAction>();
-
-		//public event Action onOver;
-		//public event Action onStart;
-
-
-
-		///public Task(){}
 		public TaskInit init = delegate (){};
 		public TaskShutdown shutdown = delegate(){};
 		public TaskUpdate update = delegate(float d){};
-		public TaskIsOver isOver = delegate(){return true;};
+		public TaskIsOver isOver = delegate () { return true; };
 		
 	};
 }  

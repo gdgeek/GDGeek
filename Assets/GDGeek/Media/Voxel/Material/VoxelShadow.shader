@@ -1,4 +1,6 @@
-﻿// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
 
 
 
@@ -62,7 +64,7 @@ Shader "GDGeek/VoxelShadow" {
 
 			vertexOutput vert ( vertexInput input ) {
 				vertexOutput output;
-				output.vertex = mul(UNITY_MATRIX_MVP, input.vertex);
+				output.vertex = UnityObjectToClipPos(input.vertex);
 				output.texcoord0 = TRANSFORM_TEX(input.texcoord, _MainTex);
 				output.texcoord1 = TRANSFORM_TEX(input.texcoord1, _MainTex);
 				

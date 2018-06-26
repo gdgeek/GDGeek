@@ -9,8 +9,8 @@ namespace GDGeek{
 public class VoxelHandler {
 	public int id = 0;
 	public Color color = Color.red;
-	public List<VectorInt4> vertices = new List<VectorInt4> (); 
-	public VectorInt3 position;
+	public List<Vector4Int> vertices = new List<Vector4Int> (); 
+	public Vector3Int position;
 
 }
 }

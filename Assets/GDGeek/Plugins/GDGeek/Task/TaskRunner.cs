@@ -5,7 +5,7 @@ This source file is part of GDGeek
     (Game Develop & Game Engine Extendable Kits)
 For the latest info, see http://gdgeek.com/
 
-Copyright (c) 2014-2015 GDGeek Software Ltd
+Copyright (c) 2014-2017 GDGeek Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -34,8 +34,7 @@ using System.Collections.Generic;
 
 
 namespace GDGeek{
-	public class TaskRunner : MonoBehaviour {
-		//public int _lots = 1;
+	public class TaskRunner : MonoBehaviour, ITaskRunner {
 		private Filter filter_ = new Filter();
 		private List<Task> tasks_ = new List<Task>();
 		private List<Task> shutdown_ = new List<Task>();
@@ -77,10 +76,7 @@ namespace GDGeek{
 		
 		protected virtual void Update() { 
 			float d = filter_.interval(Time.deltaTime);
-			//float lots = (float)_lots;
-			//for (int i = 0; i < _lots; ++i) {
-				this.update (d);
-			//}
+			this.update (d);
 		}
 	}
 }

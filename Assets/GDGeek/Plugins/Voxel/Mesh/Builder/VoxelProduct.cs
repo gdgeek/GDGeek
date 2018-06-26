@@ -8,7 +8,7 @@ namespace GDGeek{
 	public class VoxelProduct{
 		
 		public class Product{
-			public Dictionary<VectorInt3, VoxelHandler> voxels = null;
+			public Dictionary<Vector3Int, VoxelHandler> voxels = null;
 			public VoxelDrawData draw = null;
 		}
 
@@ -72,7 +72,7 @@ namespace GDGeek{
 			if (this.sub != null) {
 
 			
-				List<int> triangles = new List<int>();
+				//List<int> triangles = new List<int>();
 				for (int i = 0; i < this.sub.Length; ++i) {
 
 					int offset = data_.vertices.Count;

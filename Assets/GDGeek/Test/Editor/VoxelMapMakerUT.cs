@@ -9,39 +9,39 @@ public class VoxelMapMakerUT {
 	[Test] 
 	public void SplitVoxelTest(){
 
-		VectorInt3 a = new VectorInt3 (3, 4, 5);
-		VectorInt3 b = new VectorInt3 (1, 2, 3);
-		Assert.AreEqual (a - b, new VectorInt3 (2, 2, 2));
+		Vector3Int a = new Vector3Int (3, 4, 5);
+		Vector3Int b = new Vector3Int (1, 2, 3);
+		Assert.AreEqual (a - b, new Vector3Int (2, 2, 2));
 
 		FileStream sr2 = new FileStream (".//Assets//Voxel//grass.bytes", FileMode.OpenOrCreate, FileAccess.Read);
 		System.IO.BinaryReader br2 = new System.IO.BinaryReader (sr2); 
-		VoxelStruct vs = MagicaVoxelFormater.ReadFromBinary (br2).vs;
+		VoxelStruct vs = MagicaVoxelFormater.ReadFromBinary (br2).structure;
 
 
 		SplitVoxel split = new SplitVoxel (vs);
 
-		split.addBox(new VectorInt3(0,0,0), new VectorInt3(16,16,3));
-		split.addBox(new VectorInt3(0,17,0), new VectorInt3(16,16,3));
-		split.addBox(new VectorInt3(0,34,0), new VectorInt3(16,16,3));
-		split.addBox(new VectorInt3(0,54,0), new VectorInt3(16,16,3));
+		split.addBox(new Vector3Int(0,0,0), new Vector3Int(16,16,3));
+		split.addBox(new Vector3Int(0,17,0), new Vector3Int(16,16,3));
+		split.addBox(new Vector3Int(0,34,0), new Vector3Int(16,16,3));
+		split.addBox(new Vector3Int(0,54,0), new Vector3Int(16,16,3));
 
 
-		split.addBox(new VectorInt3(20,0,0), new VectorInt3(16,16,3));
-		split.addBox(new VectorInt3(20,17,0), new VectorInt3(16,16,3));
-		split.addBox(new VectorInt3(20,34,0), new VectorInt3(16,16,3));
-		split.addBox(new VectorInt3(20,54,0), new VectorInt3(16,16,3));
+		split.addBox(new Vector3Int(20,0,0), new Vector3Int(16,16,3));
+		split.addBox(new Vector3Int(20,17,0), new Vector3Int(16,16,3));
+		split.addBox(new Vector3Int(20,34,0), new Vector3Int(16,16,3));
+		split.addBox(new Vector3Int(20,54,0), new Vector3Int(16,16,3));
 
 
-		split.addBox(new VectorInt3(37,0,0), new VectorInt3(16,16,3));
-		split.addBox(new VectorInt3(37,17,0), new VectorInt3(16,16,3));
-		split.addBox(new VectorInt3(37,34,0), new VectorInt3(16,16,3));
-		split.addBox(new VectorInt3(37,54,0), new VectorInt3(16,16,3));
+		split.addBox(new Vector3Int(37,0,0), new Vector3Int(16,16,3));
+		split.addBox(new Vector3Int(37,17,0), new Vector3Int(16,16,3));
+		split.addBox(new Vector3Int(37,34,0), new Vector3Int(16,16,3));
+		split.addBox(new Vector3Int(37,54,0), new Vector3Int(16,16,3));
 
 
-		split.addBox(new VectorInt3(54,0,0), new VectorInt3(16,16,3));
-		split.addBox(new VectorInt3(54,17,0), new VectorInt3(16,16,3));
-		split.addBox(new VectorInt3(54,34,0), new VectorInt3(16,16,3));
-		split.addBox(new VectorInt3(54,54,0), new VectorInt3(16,16,3));
+		split.addBox(new Vector3Int(54,0,0), new Vector3Int(16,16,3));
+		split.addBox(new Vector3Int(54,17,0), new Vector3Int(16,16,3));
+		split.addBox(new Vector3Int(54,34,0), new Vector3Int(16,16,3));
+		split.addBox(new Vector3Int(54,54,0), new Vector3Int(16,16,3));
 		/**/
 
 		VoxelStruct[] voxels = split.doIt ();
@@ -61,56 +61,11 @@ public class VoxelMapMakerUT {
 	public void JoinVoxelTest(){
 
 		FileStream sr2 = new FileStream (".//Assets//Voxel//temp.vox", FileMode.OpenOrCreate, FileAccess.Read);
-
-
 		System.IO.BinaryReader br2 = new System.IO.BinaryReader (sr2); 
-
-		VoxelStruct vs = MagicaVoxelFormater.ReadFromBinary (br2).vs;
-		//vs.arrange ();
+		VoxelStruct vs = MagicaVoxelFormater.ReadFromBinary (br2).structure;
 		Debug.Log (MagicaVoxelFormater.GetMd5(vs));
 
-		return;
-	/*
-		FileStream sr2 = new FileStream ("fly2.vox", FileMode.OpenOrCreate, FileAccess.Read);
 
-
-		System.IO.BinaryReader br2 = new System.IO.BinaryReader (sr2); 
-
-		VoxelStruct vs = VoxelFormater.ReadFromMagicaVoxel (br2);
-
-		sr2.Close ();
-		JoinVoxel join = new JoinVoxel ();
-		join.addVoxel(vs, new VectorInt3(0, 0, 0));
-		join.addVoxel(vs, new VectorInt3(10, 10, 10));
-		VoxelStruct vs2 = join.doIt ();
-
-		FileStream sw = new FileStream ("fly3.vox", FileMode.Create, FileAccess.Write);
-
-		System.IO.BinaryWriter bw = new System.IO.BinaryWriter (sw); 
-		VoxelFormater.WriteToMagicaVoxel (vs2, bw);
-		sw.Close ();
-		/*
-
-		Assert.AreEqual(vs.main.name, vs2.main.name);
-		Assert.AreEqual(vs.main.size, vs2.main.size);
-		Assert.AreEqual(vs.main.chunks, vs2.main.chunks);
-
-
-		Assert.AreEqual(vs.size.box, vs2.size.box);
-		Assert.AreEqual(vs.size.name, vs2.size.name);
-		Assert.AreEqual(vs.size.size, vs2.size.size);
-		Assert.AreEqual(vs.size.chunks, vs2.size.chunks);
-		*/
-
-		//Assert.AreEqual(vs.rgba.palette.Length, vs2.rgba.palette.Length);
-		/*for (int i = 0; i < vs.rgba.palette.Length; ++i) {
-			Assert.AreEqual(vs.rgba.palette[i], vs2.rgba.palette[i]);
-		}*/
-		/*//		Debug.Log (vs2.rgba.palette.Length);
-		Assert.AreEqual(vs.rgba.name, vs2.rgba.name);
-		Assert.AreEqual(vs.rgba.size, vs2.rgba.size);
-		Assert.AreEqual(vs.rgba.chunks, vs2.rgba.chunks);
-*/
 
 	}
 
@@ -151,7 +106,7 @@ public class VoxelMapMakerUT {
 		FileStream sw = new FileStream ("fly2.vox", FileMode.Create, FileAccess.Write);
 
 		System.IO.BinaryWriter bw = new System.IO.BinaryWriter (sw); 
-		MagicaVoxelFormater.WriteToBinary (magic.vs, bw);
+		MagicaVoxelFormater.WriteToBinary (magic.structure, bw);
 
 
 		sw.Close ();
@@ -200,18 +155,18 @@ public class VoxelMapMakerUT {
 
 
 		//Debug.Log ();
-		Assert.AreEqual(magic.vs.datas.Count, magic2.vs.datas.Count);
+		Assert.AreEqual(magic.structure.count, magic2.structure.count);
 
 //		Debug.Log (vs2.datas.Length);
-		for (int i = 0; i < magic.vs.datas.Count; ++i) {
-			Assert.AreEqual(magic.vs.datas[i].color, magic2.vs.datas[i].color);
-			Assert.AreEqual(magic.vs.datas[i].pos.x, magic2.vs.datas[i].pos.x);
-			Assert.AreEqual(magic.vs.datas[i].pos.y, magic2.vs.datas[i].pos.y);
-			Assert.AreEqual(magic.vs.datas[i].pos.z, magic2.vs.datas[i].pos.z);
+		for (int i = 0; i < magic.structure.count; ++i) {
+			Assert.AreEqual(magic.structure.getData(i).color, magic2.structure.getData(i).color);
+			Assert.AreEqual(magic.structure.getData(i).position.x, magic2.structure.getData(i).position.x);
+			Assert.AreEqual(magic.structure.getData(i).position.y, magic2.structure.getData(i).position.y);
+			Assert.AreEqual(magic.structure.getData(i).position.z, magic2.structure.getData(i).position.z);
 		}
 
 
-		Assert.AreEqual (magic.vs.datas.Count, magic.vs.datas.Count);	
+		Assert.AreEqual (magic.structure.count, magic.structure.count);	
 
     }
 }

@@ -23,7 +23,7 @@ namespace GDGeek
 	//	private Vector2[] uv1s_ = null;
 	//	private Vector2[] uv2s_ = null;
 		public void refresh(){
-			List<int> list = new List<int> ();
+			//List<int> list = new List<int> ();
 
 			postions_ = new Vector3[vertices.Count];
 			colors_ = new Color[vertices.Count];

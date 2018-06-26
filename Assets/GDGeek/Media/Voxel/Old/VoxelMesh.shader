@@ -1,4 +1,6 @@
-﻿
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+
 Shader "GDGeek/VoxelMesh" {
     Properties {
    		 _Color ("Main Color", Color) = (1,1,1,1)
@@ -59,7 +61,7 @@ Shader "GDGeek/VoxelMesh" {
 
 			v2f vert ( appdata_t _in ) {
 				v2f o;
-				o.vertex = mul(UNITY_MATRIX_MVP, _in.vertex);
+				o.vertex = UnityObjectToClipPos(_in.vertex);
 				o.texcoord = TRANSFORM_TEX(_in.texcoord, _MainTex);
 				o.texcoord1 = TRANSFORM_TEX(_in.texcoord1, _MainTex);
 				
