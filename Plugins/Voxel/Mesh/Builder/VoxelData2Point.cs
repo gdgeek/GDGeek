@@ -6,21 +6,18 @@ namespace GDGeek
 {
 	public class VoxelData2Point
 	{
-		private VoxelData[] data_ = null;
-		/*public void init(){
-			data_ = null;
-		
-		}*/
+		private List<VoxelData> data_ = null;
+
+		private bool adjust_ = false;
+	
 		public VoxelData2Point(){
 		}
 
 
-		public VoxelData2Point(VoxelData[] data){
-			setup (data);
-		}
-		public void setup(VoxelData[] data){
+		public VoxelData2Point(List<VoxelData> data){
 			data_ = data;
 		}
+		
 
 		private VoxelHandler data2Handler (VoxelData data)
 		{
@@ -42,11 +39,11 @@ namespace GDGeek
 		}
 		public void build(VoxelProduct product){
 
-			product.min = new Vector3(999, 999, 999);
-			product.max = new Vector3(-999, -999, -999);
+			product.min = new Vector3Int(999, 999, 999);
+			product.max = new Vector3Int(-999, -999, -999);
 			product.main.voxels = new Dictionary<Vector3Int, VoxelHandler>();
 
-			for (int i=0; i<data_.Length; ++i) {
+			for (int i=0; i<data_.Count; ++i) {
 				VoxelData d = data_ [i];
 				var min = product.min;
 				var max = product.max;
@@ -57,23 +54,28 @@ namespace GDGeek
 				max.x = Mathf.Max (max.x, d.position.x);
 				max.y = Mathf.Max (max.y, d.position.y);
 				max.z = Mathf.Max (max.z, d.position.z);
-
-
 				product.min = min;
 				product.max = max;
 
 			}
-			for (int i=0; i<data_.Length; ++i) {
-
+			for (int i=0; i<data_.Count; ++i) {
 				VoxelHandler handler = data2Handler(data_[i]);
-				product.main.voxels.Add (handler.position, handler);	
-
+				product.main.voxels.Add (handler.position, handler);
 			}
 
-
-
-
 		}
+/*
+		private VoxelHandler data2HandlerAdjust(VoxelData data, Vector3Int min, Vector3Int max)
+		{
+			VoxelHandler handler = new VoxelHandler();
+			handler.position = new Vector3Int(
+					(max.x - data.position.x) + min.x,
+					data.position.y,
+					(max.z - data.position.z) + min.z
+				);
+			handler.color = data.color;
+			return handler;
+		}*/
 	}
 
 

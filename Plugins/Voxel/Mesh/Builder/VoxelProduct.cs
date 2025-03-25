@@ -22,17 +22,17 @@ namespace GDGeek{
 			get;
 			set;
 		} = new Vector3(0.5f, 0.5f, 0.5f);
-		public Vector3 min
+		public Vector3Int min
 		{
 			get;
 			set;
-		} = new Vector3(999, 999, 999);
+		} = new Vector3Int(999, 999, 999);
 	
-		public Vector3 max
+		public Vector3Int max
 		{
 			get;
 			set;
-		}= new Vector3(-999, -999, -999);
+		}= new Vector3Int(-999, -999, -999);
 
 
 		public Product main

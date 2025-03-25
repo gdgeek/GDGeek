@@ -1,174 +1,153 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GDGeek
 {
-	public class VoxelMeshBuild 
-	{
+   public class VoxelMeshBuild  
+    {  
+        public class Vector3Quad  
+        {  
+            private Vector3[] vectors = new Vector3[4];  
+            public Vector3 offset { get; set; }  
+            public Vector3Int location { get; set; } = Vector3Int.zero;  
+            public float size { private get; set; } = 0.005f;  
+            public Quaternion rotation { get; set; } = Quaternion.identity;  
 
+            public Vector3Quad(Vector3 v0, Vector3 v1, Vector3 v2, Vector3 v3)  
+            {  
+                vectors[0] = v0;  
+                vectors[1] = v1;  
+                vectors[2] = v2;  
+                vectors[3] = v3;  
+            }  
 
-		
-		
-		public VoxelMeshBuild()
-		{
-		}
-		public class Vector3Quad
-		{
-			private Vector3 vector0_;
-			private Vector3 vector1_;
-			private Vector3 vector2_;
-			private Vector3 vector3_;
+            public Vector3 this[int index] => rotation * (vectors[index] * size) + offset * size;  
 
-	
+            public Vector3Int normal  
+            {  
+                get  
+                {  
+                    Vector3 normalized = Vector3.Cross(this[2] - this[0], this[3] - this[0]).normalized;  
+                    return new Vector3Int(  
+                        Mathf.RoundToInt(normalized.x),  
+                        Mathf.RoundToInt(normalized.y),  
+                        Mathf.RoundToInt(normalized.z)  
+                    );  
+                }  
+            }  
+        }  
 
-			public Vector3 offset { set; get; }
+        private void addVertix(List<VoxelVertex> vertices, Vector3 position, Color32 c, Vector3Int normal, Vector2 uv1)  
+        {  
+            vertices.Add(new VoxelVertex { position = position, normal = normal, color = c, uv = uv1 });  
+        }  
 
+        private Vector3Quad getPoints(Quaternion rotation, Vector3Int location, float size, Vector3 offset)  
+        {  
+            return new Vector3Quad(  
+                new Vector3(0.5f, -0.5f, 0.5f),  
+                new Vector3(-0.5f, -0.5f, 0.5f),  
+                new Vector3(0.5f, 0.5f, 0.5f),  
+                new Vector3(-0.5f, 0.5f, 0.5f))  
+            {  
+                rotation = rotation,  
+                location = location,  
+                size = size,  
+                offset = location + offset  
+            };  
+        }  
 
-		
+        private void addRect(List<VoxelVertex> vertices, List<int> triangles, Vector3Quad quad, Color32 color)  
+        {  
+            int vertexCount = vertices.Count;  
+            triangles.AddRange(new int[] { vertexCount, vertexCount + 2, vertexCount + 3, vertexCount, vertexCount + 3, vertexCount + 1 });  
 
-			public Vector3Int location
-			{
-				get;
-				set;
-			} = Vector3Int.zero;
+            for (int i = 0; i < 4; i++)  
+            {  
+                addVertix(vertices, quad[i], color, quad.normal, new Vector2(i % 2, i / 2));  
+            }  
+        }  
 
-			public Vector3 p0 => rotation * (vector0_ * size)+ offset * size;
-			public Vector3 p1 =>  rotation * (vector1_ * size) + offset * size;
-			public Vector3 p2 =>  rotation * (vector2_ * size) + offset * size;
-			public Vector3 p3 =>  rotation * (vector3_ * size) + offset * size;
-			public Vector3Int normal
-			{
-				get
-				{
-					Vector3 normalized = Vector3.Cross(p2 - p0, p3 - p0).normalized;
-					return new Vector3Int(Mathf.RoundToInt(normalized.x), Mathf.RoundToInt(normalized.y), Mathf.RoundToInt(normalized.z));
-				}
-			}
+        private void build(VoxelProduct.Product main, Dictionary<Vector3Int, VoxelHandler> voxs, Dictionary<Vector3Int, VoxelHandler> all, float size, Vector3 offset)  
+        {  
+            List<Vector3Int> keys = new List<Vector3Int>(voxs.Keys);  
 
-			public Vector3Quad(Vector3 v0, Vector3 v1, Vector3 v2, Vector3 v3)
-			{
-				vector0_ = v0;
-				vector1_ = v1;
-				vector2_ = v2;
-				vector3_ = v3;
-			}
+            // 创建共享的线程安全的并发集合  
+            var vertices = new List<VoxelVertex>();  
+            var triangles = new List<int>();  
 
+            object lockObj = new object(); // 用于同步  
 
+            Parallel.For(0, keys.Count, i =>  
+            {  
+                var localVertices = new List<VoxelVertex>();  
+                var localTriangles = new List<int>();  
 
-			public float size
-			{
-				private get;
-				set;
-			}  = 0.005f;
+                Vector3Int key = keys[i];  
+                VoxelHandler voxel = voxs[key];  
+                Color32 color = voxel.color;  
 
-			public Quaternion rotation
-			{
-				get;
-				set;
-			} = Quaternion.identity;
+                // 检查每个方向是否需要添加面  
+                if (!all.ContainsKey(key + Vector3Int.forward))  
+                {  
+                    var quad = getPoints(Quaternion.identity, key, size, offset);  
+                    addRect(localVertices, localTriangles, quad, color);  
+                }  
+                if (!all.ContainsKey(key + Vector3Int.up))  
+                {  
+                    var quad = getPoints(Quaternion.AngleAxis(-90f, Vector3.right), key, size, offset);  
+                    addRect(localVertices, localTriangles, quad, color);  
+                }  
+                if (!all.ContainsKey(key + Vector3Int.back))  
+                {  
+                    var quad = getPoints(Quaternion.AngleAxis(-180f, Vector3.right), key, size, offset);  
+                    addRect(localVertices, localTriangles, quad, color);  
+                }  
+                if (!all.ContainsKey(key + Vector3Int.down))  
+                {  
+                    var quad = getPoints(Quaternion.AngleAxis(-270f, Vector3.right), key, size, offset);  
+                    addRect(localVertices, localTriangles, quad, color);  
+                }  
+                if (!all.ContainsKey(key + Vector3Int.left))  
+                {  
+                    var quad = getPoints(Quaternion.AngleAxis(-90f, Vector3.up), key, size, offset);  
+                    addRect(localVertices, localTriangles, quad, color);  
+                }  
+                if (!all.ContainsKey(key + Vector3Int.right))  
+                {  
+                    var quad = getPoints(Quaternion.AngleAxis(90f, Vector3.up), key, size, offset);  
+                    addRect(localVertices, localTriangles, quad, color);  
+                }  
 
-		}
+                // 将本地结果合并到全局列表中，需要线程同步  
+                lock (lockObj)  
+                {  
+                    int vertexOffset = vertices.Count;  
+                    vertices.AddRange(localVertices);  
+                    foreach (var tri in localTriangles)  
+                    {  
+                        triangles.Add(tri + vertexOffset);  
+                    }  
+                }  
+            });  
 
-		private void addVertix (VoxelProduct.Product main, Vector3 position, Color32 c, Vector3Int normal, Vector2 uv1){
-			VoxelVertex vtx = new VoxelVertex ();
-			vtx.position = position;
-			vtx.normal = normal;
-			vtx.color = c;
-			vtx.uv =  uv1;
-			main.draw.vertices.Add (vtx);
-		}
+            main.draw.vertices = vertices;  
+            main.draw.triangles = triangles;  
+        }  
 
-		private Vector3Quad getPoints(Quaternion rotation, Vector3Int location, float size, Vector3 offset)
-		{
-			
-			Vector3 p0 =  new Vector3 (0.5f, -0.5f, 0.5f);//左上 1
-			Vector3 p1 =  new Vector3 (-0.5f, -0.5f, 0.5f);//右上 0
-			Vector3 p2 =  new Vector3 (0.5f, 0.5f, 0.5f) ;//左下 3
-			Vector3 p3 =  new Vector3 (-0.5f, 0.5f, 0.5f);//右下 2
+        public void build(VoxelProduct product)  
+        {  
+            foreach (var prod in product.products)  
+            {  
+                build(prod, product.main.voxels, product.size, product.offset);  
+            }  
+        }  
 
-			Vector3Quad quad =  new Vector3Quad(p0, p1, p2, p3);
-			quad.rotation = rotation;
-			quad.location = location;
-			quad.size = size;
-			quad.offset = location + offset;
-			return quad;
-		}
-
-		
-		private void addRect(VoxelProduct.Product main, Vector3Quad quad, Color32 color){
-			
-			
-			main.draw.triangles.Add (main.draw.vertices.Count + 0);//0
-			main.draw.triangles.Add (main.draw.vertices.Count + 2);//2
-			main.draw.triangles.Add (main.draw.vertices.Count + 3);//3
-			main.draw.triangles.Add (main.draw.vertices.Count + 0);//0
-			main.draw.triangles.Add (main.draw.vertices.Count + 3);//3
-			main.draw.triangles.Add (main.draw.vertices.Count + 1);//1
-
-;
-
-	
-			this.addVertix (main,  quad.p0, color, quad.normal, new Vector2(0, 0));
-			this.addVertix (main, quad.p1, color, quad.normal, new Vector2(1, 0));
-			this.addVertix (main, quad.p2, color, quad.normal, new Vector2(0, 1));
-			this.addVertix (main, quad.p3, color, quad.normal, new Vector2(1, 1));
-			
-
-
-		}
-		private void build(VoxelProduct.Product main, int from, int to, Dictionary<Vector3Int, VoxelHandler> voxs, Dictionary<Vector3Int, VoxelHandler> all,float size, Vector3 offset){
-
-//			Debug.LogError(size);
-			List<Vector3Int> keys = new List<Vector3Int> (voxs.Keys); 
-			for (int i = from; i < to; ++i) {
-				Vector3Int key = keys [i];
-				VoxelHandler value = voxs [key];
-				if(!all.ContainsKey(key + Vector3Int.forward)){
-					
-					addRect(main, getPoints(Quaternion.AngleAxis(0f, Vector3.up), key,size, offset), value.color);
-				}
-				if(!all.ContainsKey(key + Vector3Int.up)){
-			
-					addRect(main,getPoints(Quaternion.AngleAxis(-90f, Vector3.right), key,size, offset), value.color);
-				}
-				
-				if(!all.ContainsKey(key + Vector3Int.back)){
-				
-					addRect(main, getPoints( Quaternion.AngleAxis(-180f, Vector3.right),key,size, offset), value.color);
-				}
-				if(!all.ContainsKey(key + Vector3Int.down)){
-					addRect(main,getPoints(Quaternion.AngleAxis(-270f, Vector3.right),key,size, offset), value.color);
-				}
-				if(!all.ContainsKey(key + Vector3Int.left))
-				{
-					addRect(main, getPoints(Quaternion.AngleAxis(-90f, Vector3.up), key,size, offset), value.color);
-				}
-				
-				if(!all.ContainsKey(key + Vector3Int.right)){
-					addRect(main,getPoints(Quaternion.AngleAxis(90f,Vector3.up), key,size, offset), value.color);
-				}
-			
-			}
-		}
-
-		public void build(VoxelProduct product){
-			
-				var products = product.products;
-				for (int i = 0; i < products.Count; ++i) {
-					build (products [i], product.main.voxels , product.size, product.offset);
-					
-				}
-			
-
-		}
-		public void build(VoxelProduct.Product main, Dictionary<Vector3Int, VoxelHandler> all, float size, Vector3 offset){
-		
-			main.draw = new VoxelDrawData ();
-			build (main, 0, main.voxels.Count, main.voxels, all, size, offset);
-		
-		}
-	}
-
-
+        public void build(VoxelProduct.Product main, Dictionary<Vector3Int, VoxelHandler> all, float size, Vector3 offset)  
+        {  
+            main.draw = new VoxelDrawData();  
+            build(main, main.voxels, all, size, offset);  
+        }  
+    }  
 }

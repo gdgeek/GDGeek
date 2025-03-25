@@ -29,7 +29,56 @@ namespace GDGeek{
 		public VoxelStruct()
 		{
 		}
+		public VoxelStruct adjust( bool x, bool y, bool z){
+			VoxelStruct ret = new VoxelStruct ();
+			
+			Vector3Int min = new Vector3Int(9999, 9999, 9999);
+			Vector3Int max = new Vector3Int(-9999, -9999,-9999);
 
+			for (int i = 0; i < this.datas.Count; ++i) {
+				Vector3Int pos = this.datas [i].position;
+				min.x = Mathf.Min (pos.x, min.x);
+				min.y = Mathf.Min (pos.y, min.y);
+				min.z = Mathf.Min (pos.z, min.z);
+				max.x = Mathf.Max (pos.x, max.x);
+				max.y = Mathf.Max (pos.y, max.y);
+				max.z = Mathf.Max (pos.z, max.z);
+			}
+			
+			
+			for (int i = 0; i < this.datas.Count; ++i) {
+				VoxelData data = this.datas [i];
+				Vector3Int pos = data.position;
+				if (x) {
+					pos.x = min.x + max.x - pos.x;
+				}
+				if (y) {
+					pos.y = min.y + max.y - pos.y;
+				}
+				if (z) {
+					pos.z = min.z + max.z - pos.z;
+				}
+				ret.datas.Add (new VoxelData (pos, data.color));
+			}
+			ret.datas.Sort((a, b) =>
+			{
+				// 先比较 y 值  
+				int yComparison = a.position.y.CompareTo(b.position.y);  
+				if (yComparison != 0)  
+					return yComparison;  
+				// 如果 y 值相同，比较 z 值  
+				int zComparison = a.position.z.CompareTo(b.position.z);  
+				if (zComparison != 0)  
+					return zComparison;  
+						
+				// 如果 y 和 z 值都相同，比较 x 值  
+				return a.position.x.CompareTo(b.position.x);  
+
+			});
+			return ret;
+		}
+		
+		
 		public static VoxelStruct Unusual(Vector3Int shifting, VoxelStruct st){
 
 			VoxelStruct ret = new VoxelStruct ();
@@ -195,7 +244,6 @@ namespace GDGeek{
 		public Main main = null;
 		public Size size = null;
 		public Rgba rgba = null;
-		public string md5 = null;
 
 		public MagicaVoxel processor(IVoxelProcessor processors){
 		
@@ -217,38 +265,36 @@ namespace GDGeek{
 			arrange (vs);
 		}
 
-		private void arrange(VoxelStruct st, bool normal = false){
+		
+
+		private Vector3Int min  { get;set; } = Vector3Int.zero;
+		private Vector3Int max  { get;set; }= Vector3Int.one;
+		private void arrange(VoxelStruct st){
 			vs_ = st;
 			HashSet<Color32> palette = new HashSet<Color32>();
 
-			Vector3Int min = new Vector3Int(9999, 9999, 9999);
-			Vector3Int max = new Vector3Int(-9999, -9999,-9999);
+			min = new Vector3Int(9999, 9999, 9999);
+			max = new Vector3Int(-9999, -9999,-9999);
 
 			for (int i = 0; i < st.datas.Count; ++i) {
 				palette.Add (st.datas[i].color);
 
 				Vector3Int pos = st.datas [i].position;
-
-				min.x = Mathf.Min (pos.x, min.x);
-				min.y = Mathf.Min (pos.y, min.y);
-				min.z = Mathf.Min (pos.z, min.z);
-				max.x = Mathf.Max (pos.x, max.x);
-				max.y = Mathf.Max (pos.y, max.y);
-				max.z = Mathf.Max (pos.z, max.z);
+				min = new Vector3Int(
+					Mathf.Min (pos.x, min.x),
+					Mathf.Min (pos.y, min.y),
+					Mathf.Min (pos.z, min.z)
+				);
+				max = new Vector3Int(
+					Mathf.Max (pos.x, max.x),
+					Mathf.Max (pos.y, max.y),
+					Mathf.Max (pos.z, max.z)
+				);
+			
 
 			}
 
-			if (normal) {
-				max = max - min;
-				for (int i = 0; i < st.datas.Count; ++i) {
-					palette.Add (st.datas[i].color);
-					var data = st.datas [i];
-					data.position -= min;
-					st.datas [i]= data;//.pos = pos - min;
-
-				}
-				min = new Vector3Int (0, 0, 0);
-			}
+		
 
 			this.main = new MagicaVoxel.Main ();
 			this.main.name = "MAIN";

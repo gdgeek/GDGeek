@@ -50,8 +50,12 @@ namespace GDGeek.FileDownload
 
         private bool existsStreamingAssets(string fileName)
             => System.IO.File.Exists(getStreamingAssetsPath(fileName));
+
         private bool existsPersistentData(string fileName)
-            => System.IO.File.Exists(getPersistentDataPath(fileName));
+        {
+            return System.IO.File.Exists(getPersistentDataPath(fileName));
+        }
+       
 
         public bool exists(string fileName)
         {

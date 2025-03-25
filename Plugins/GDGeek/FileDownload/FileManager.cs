@@ -141,12 +141,14 @@ namespace GDGeek.FileDownload
           
         }
 
+
         
-        private System.Threading.Tasks.Task<Stream> _readFromCache(FileData data)
+        private   System.Threading.Tasks.Task<Stream>  _readFromCache(FileData data)
         {
-            return System.Threading.Tasks.Task.Run( async() =>
+           
+             return  System.Threading.Tasks.Task.Run(async () =>
             {
-                return (Stream)LocalFile.Instance.read(data.key);
+                return await System.Threading.Tasks.Task.FromResult((Stream)LocalFile.Instance.read(data.key));
             });
           
         }
@@ -187,12 +189,12 @@ namespace GDGeek.FileDownload
             {
                 stream.Position = 0;
                 byte[] data = new byte[stream.Length];
-                stream.Read(data, 0, data.Length);
+                await stream.ReadAsync(data, 0, data.Length);
                 var o = LocalFile.Instance.write(fileName);
-                o.Write(data, 0, data.Length);
+                await o.WriteAsync(data, 0, data.Length);
 
-                o.Flush();
-                stream.Flush();
+                await o.FlushAsync();
+                await stream.FlushAsync();
                 o.Close();
 
             });

@@ -4,10 +4,12 @@ using System.Linq;
 
 using UnityEngine;
 
-namespace GDGeek { 
-    public static class TransformUtility {
+namespace GDGeek
+{
+    public static class TransformUtility
+    {
 
-	   
+
         public static void load(this Transform transform, TransformData local, Space type = Space.World)
         {
             local.write(ref transform, type);
@@ -29,8 +31,8 @@ namespace GDGeek {
             GameObject.Destroy(obj);
             return ret;
         }
-    
-     
+
+
         public static void resetPosition(this Transform transform)
         {
             transform.position = Vector3.zero;
@@ -56,11 +58,10 @@ namespace GDGeek {
             bool active = transform.gameObject.activeSelf;
             transform.gameObject.SetActive(true);
             transform.localScale = Vector3.one;
-            
             transform.localScale = new Vector3(globalScale.x / transform.lossyScale.x, globalScale.y / transform.lossyScale.y, globalScale.z / transform.lossyScale.z);
             transform.gameObject.SetActive(active);
         }
-       
+
         public static void resetScale(this Transform transform)
         {
             transform.setGlobalScale(Vector3.one);
@@ -77,29 +78,29 @@ namespace GDGeek {
             transform.resetScale();
         }
 
-        public static void setX(this Transform transform, float x)  
-	    {  
-		    Vector3 newPosition =   
-			    new Vector3(x, transform.position.y, transform.position.z);  
+        public static void setX(this Transform transform, float x)
+        {
+            Vector3 newPosition =
+                new Vector3(x, transform.position.y, transform.position.z);
 
-		    transform.position = newPosition;  
-	    }  
+            transform.position = newPosition;
+        }
 
-	    public static void setY(this Transform transform, float y)  
-	    {  
-		    Vector3 newPosition =   
-			    new Vector3(transform.position.x, y, transform.position.z);  
+        public static void setY(this Transform transform, float y)
+        {
+            Vector3 newPosition =
+                new Vector3(transform.position.x, y, transform.position.z);
 
-		    transform.position = newPosition;  
-	    }  
+            transform.position = newPosition;
+        }
 
-	    public static void setZ(this Transform transform, float z)  
-	    {  
-		    Vector3 newPosition =   
-			    new Vector3(transform.position.x, transform.position.y, z);  
+        public static void setZ(this Transform transform, float z)
+        {
+            Vector3 newPosition =
+                new Vector3(transform.position.x, transform.position.y, z);
 
-		    transform.position = newPosition;  
-	    }
+            transform.position = newPosition;
+        }
 
         public static void setLocalX(this Transform transform, float x)
         {
@@ -125,51 +126,57 @@ namespace GDGeek {
             transform.localPosition = newPosition;
         }
 
-        public static void plusX(this Transform transform, float x){
-		    Vector3 newPosition =   
-			    new Vector3(transform.position.x + x, transform.position.y, transform.position.z);  
+        public static void plusX(this Transform transform, float x)
+        {
+            Vector3 newPosition =
+                new Vector3(transform.position.x + x, transform.position.y, transform.position.z);
 
-		    transform.position = newPosition;  
-	    }
+            transform.position = newPosition;
+        }
 
-	    public static void plusY(this Transform transform, float y){
-		    Vector3 newPosition =   
-			    new Vector3(transform.position.x, transform.position.y + y, transform.position.z);  
+        public static void plusY(this Transform transform, float y)
+        {
+            Vector3 newPosition =
+                new Vector3(transform.position.x, transform.position.y + y, transform.position.z);
 
-		    transform.position = newPosition;  
-	    }
+            transform.position = newPosition;
+        }
 
-	    public static void plusZ(this Transform transform, float z){
-		    Vector3 newPosition =   
-			    new Vector3(transform.position.x, transform.position.y, transform.position.z+z);  
+        public static void plusZ(this Transform transform, float z)
+        {
+            Vector3 newPosition =
+                new Vector3(transform.position.x, transform.position.y, transform.position.z + z);
 
-		    transform.position = newPosition;  
-	    }
+            transform.position = newPosition;
+        }
 
-	    public static void minusX(this Transform transform, float x){
-		    Vector3 newPosition =   
-			    new Vector3(transform.position.x - x, transform.position.y, transform.position.z);  
+        public static void minusX(this Transform transform, float x)
+        {
+            Vector3 newPosition =
+                new Vector3(transform.position.x - x, transform.position.y, transform.position.z);
 
-		    transform.position = newPosition;  
-	    }
+            transform.position = newPosition;
+        }
 
-	    public static void minusY(this Transform transform, float y){
-		    Vector3 newPosition =   
-			    new Vector3(transform.position.x, transform.position.y-y, transform.position.z);  
+        public static void minusY(this Transform transform, float y)
+        {
+            Vector3 newPosition =
+                new Vector3(transform.position.x, transform.position.y - y, transform.position.z);
 
-		    transform.position = newPosition;  
-	    }
+            transform.position = newPosition;
+        }
 
-	    public static void minusZ(this Transform transform, float z){
-		    Vector3 newPosition =   
-			    new Vector3(transform.position.x, transform.position.y, transform.position.z-z);  
+        public static void minusZ(this Transform transform, float z)
+        {
+            Vector3 newPosition =
+                new Vector3(transform.position.x, transform.position.y, transform.position.z - z);
 
-		    transform.position = newPosition;  
-	    }
+            transform.position = newPosition;
+        }
 
 
-      
 
-        
+
+
     }
 }

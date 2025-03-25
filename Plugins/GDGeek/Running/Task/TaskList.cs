@@ -43,17 +43,15 @@ namespace GDGeek{
 		}
 		
 		
-		private TaskRunner runner_ = null;
-		public TaskList(TaskRunner runner = null){
-			runner_ = runner;
+		//private TaskRunner runner_ = null;
+		public TaskList(/*TaskRunner runner = null*/){
+			//runner_ = runner;
 			this.init = this.initImpl;
 			this.isOver = this.isOverImpl;
 		//	this.cancel = this.cancelImpl;
 		}
-		
 		public TaskList push(Task task)
 		{
-		//	task.runner = this.runner;
 			TaskManager.PushBack (task, delegate {
 				index_++;
 				runTask();

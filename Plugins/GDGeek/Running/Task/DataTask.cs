@@ -13,6 +13,7 @@ namespace GDGeek
 
         public DataTask then(Action callback)
         {
+            Debug.LogError("then");
             doThen += callback;
             return this;
         }
@@ -43,6 +44,7 @@ namespace GDGeek
         public DataTask()
         {
             this.isOver =()=>over;
+          
         }
       
 
@@ -51,31 +53,41 @@ namespace GDGeek
             get;
             set;
         } = false;
+        
+        public new static DataTask T {
+            get {
+                DataTask dt = new DataTask();
+                dt.pushFront(()=>{
+                    dt.resolve();
+                });
+                return dt;
+            }
+        }
 
-        public DataTask t => this;
+        //public  DataTask t => this;
     }
-    public class DataTask<T> : DataTask//, IDataTask<T>
+    public class DataTask<D> : DataTask//, IDataTask<T>
     {
-        protected Action<T> doThenWithData;
+        protected Action<D> doThenWithData;
 
-        public new DataTask<T> then(Action<T> callback)
+        public  DataTask<D> then(Action<D> callback)
         {
             doThenWithData += callback;
             return this;
         }
      
-        public void resolve(T data) {
+        public void resolve(D data) {
             this.data = data;
             base.resolve();
             doThenWithData?.Invoke(this.data);
         }
-        public new DataTask<T> error(Action<Exception> callback)
+        public new DataTask<D> error(Action<Exception> callback)
         {
             base.error(callback);
             return this;
         }
 
-        public DataTask(T data):base()
+        public DataTask(D data):base()
         {
             this.init = ()=> {
                 resolve(data);
@@ -87,8 +99,18 @@ namespace GDGeek
         {
         }
 
-        public T data { private set; get; }
-        public new DataTask<T> t => this;
+        public D data { private set; get; }
+
+
+         public new static DataTask<D> T {
+            get {
+                 DataTask<D> dt = new  DataTask<D>();
+                 dt.pushFront(() => dt.resolve(default(D)));
+                return dt;
+            }
+        }
+     
+       // public new DataTask<T> t => this;
   }
     
   

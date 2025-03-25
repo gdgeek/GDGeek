@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UIElements;
 namespace GDGeek
 {
     public static class Easing
@@ -12,51 +12,43 @@ namespace GDGeek
 
         public enum Method
         {
-            Linear,
+            Ease = EasingMode.Ease,
+            EaseIn = EasingMode.EaseIn,
+            EaseOut = EasingMode.EaseOut,
+            EaseInOut = EasingMode.EaseInOut,
+            Linear = EasingMode.Linear,
+            EaseInCubic = EasingMode.EaseInCubic,
+            EaseOutCubic = EasingMode.EaseOutCubic,
+            EaseInOutCubic = EasingMode.EaseInOutCubic,
+            EaseInSine = EasingMode.EaseInSine,
+            EaseOutSine = EasingMode.EaseOutSine,
+            EaseInOutSine = EasingMode.EaseInOutSine,
+            EaseInCirc = EasingMode.EaseInCirc,
+            EaseOutCirc = EasingMode.EaseOutCirc,
+            EaseInOutCirc = EasingMode.EaseInOutCirc,
+            EaseInBack = EasingMode.EaseInBack,
+            EaseOutBack = EasingMode.EaseOutBack,
+            EaseInOutBack = EasingMode.EaseInOutBack,
+            EaseInElastic = EasingMode.EaseInElastic,
+            EaseOutElastic = EasingMode.EaseOutElastic,
+            EaseInOutElastic = EasingMode.EaseInOutElastic,
+            EaseInBounce = EasingMode.EaseInBounce,
+            EaseOutBounce = EasingMode.EaseOutBounce,
+            EaseInOutBounce = EasingMode.EaseInOutBounce,
             EaseInQuad,
             EaseOutQuad,
             EaseInOutQuad,
-            EaseInCubic,
-            EaseOutCubic,
-            EaseInOutCubic,
-            EaseInQuart,
+            EaseInQuart ,
             EaseOutQuart,
             EaseInOutQuart,
             EaseInQuint,
             EaseOutQuint,
             EaseInOutQuint,
-            EaseInSine,
-            EaseOutSine,
-            EaseInOutSine,
             EaseInExpo,
             EaseOutExpo,
             EaseInOutExpo,
-            EaseInCirc,
-            EaseOutCirc,
-            EaseInOutCirc,
             Spring,
-            /* GFX47 MOD START */
-            //bounce,
-            EaseInBounce,
-            EaseOutBounce,
-            EaseInOutBounce,
-            /* GFX47 MOD END */
-            EaseInBack,
-            EaseOutBack,
-            EaseInOutBack,
-            /* GFX47 MOD START */
-            //elastic,
-            EaseInElastic,
-            EaseOutElastic,
-            EaseInOutElastic,
-            /* GFX47 MOD END */
-            // punch
-
-            EaseIn = EaseInQuad,
-            EaseOut = EaseOutQuad,
-            EaseInOut = EaseInOutQuad,
-            BounceIn = EaseInBounce,
-            BounceOut = EaseOutBounce,
+          
         }
 
         public static float EaseIt(Method method, float start, float end, float value)
@@ -69,7 +61,7 @@ namespace GDGeek
         static public Function GetFunction(Method method)
         {
 
-            Function ease = null;
+            Function ease = new Function(Linear);
             switch (method)
             {
                 case Method.EaseInQuad:
@@ -108,12 +100,17 @@ namespace GDGeek
                 case Method.EaseInOutQuint:
                     ease = new Function(EaseInOutQuint);
                     break;
+
+                case Method.EaseIn:
                 case Method.EaseInSine:
                     ease = new Function(EaseInSine);
                     break;
+
+                case Method.EaseOut:
                 case Method.EaseOutSine:
                     ease = new Function(EaseOutSine);
                     break;
+                case Method.EaseInOut:
                 case Method.EaseInOutSine:
                     ease = new Function(EaseInOutSine);
                     break;
@@ -135,16 +132,13 @@ namespace GDGeek
                 case Method.EaseInOutCirc:
                     ease = new Function(EaseInOutCirc);
                     break;
+                case Method.Ease:
                 case Method.Linear:
                     ease = new Function(Linear);
                     break;
                 case Method.Spring:
                     ease = new Function(Spring);
                     break;
-                /* GFX47 MOD START */
-                /*case EaseType.bounce:
-                    ease = new EasingFunction(bounce);
-                    break;*/
                 case Method.EaseInBounce:
                     ease = new Function(EaseInBounce);
                     break;
@@ -154,7 +148,6 @@ namespace GDGeek
                 case Method.EaseInOutBounce:
                     ease = new Function(EaseInOutBounce);
                     break;
-                /* GFX47 MOD END */
                 case Method.EaseInBack:
                     ease = new Function(EaseInBack);
                     break;
@@ -164,10 +157,6 @@ namespace GDGeek
                 case Method.EaseInOutBack:
                     ease = new Function(EaseInOutBack);
                     break;
-                /* GFX47 MOD START */
-                /*case EaseType.elastic:
-                    ease = new EasingFunction(elastic);
-                    break;*/
                 case Method.EaseInElastic:
                     ease = new Function(EaseInElastic);
                     break;
@@ -177,7 +166,6 @@ namespace GDGeek
                 case Method.EaseInOutElastic:
                     ease = new Function(EaseInOutElastic);
                     break;
-                    /* GFX47 MOD END */
             }
             return ease;
         }

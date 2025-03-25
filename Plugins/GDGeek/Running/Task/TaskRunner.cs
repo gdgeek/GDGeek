@@ -44,12 +44,13 @@ namespace GDGeek{
 		public void update(float d){
 			
 			var tasks = new List<Task>();
-			for (int i = 0; i < this.shutdown_.Count; ++i) {
-				this.shutdown_ [i].shutdown ();
+			foreach (Task task in this.shutdown_)
+			{
+				task.shutdown ();
 			}
-			this.shutdown_.Clear ();
-			for(var i=0; i< this.tasks_.Count; ++i){
-				Task task = this.tasks_[i] as Task;
+			this.shutdown_.Clear();
+			foreach (Task task in this.tasks_)
+			{
 				task.update(d);
 				if(!task.isOver()){
 					tasks.Add(task);
@@ -63,13 +64,11 @@ namespace GDGeek{
 		
 
 		public void addTask(Task task){
-//			Debug.LogError(this.gameObject.longName());
 			task.init();
 			this.tasks_.Add(task);
 		}
 		
 		protected virtual void Update() { 
-			
 			float d = filter_.interval(Time.deltaTime);
 			this.update (d);
 		}
@@ -77,8 +76,9 @@ namespace GDGeek{
 		{
 			foreach (var task in tasks_)
 			{
-				task.shutdown();
+				//task.shutdown();
 			}
+			tasks_.Clear();
 		}
 		/*
 		private void cancel(){

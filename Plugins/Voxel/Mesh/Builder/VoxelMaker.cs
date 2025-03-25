@@ -1,11 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
 
 namespace GDGeek{
 	[ExecuteInEditMode]
 	public class VoxelMaker : MonoBehaviour {
+		//[voxel`]
+		[SerializeField]
+		private bool _adjustX = false;
+		[SerializeField]
+		private bool _adjustY = false;
+		[SerializeField]
+		private bool _adjustZ = false;
 		public TextAsset _voxFile = null;
 		public bool _building = true;
 		public Material _material = null;
@@ -18,7 +26,11 @@ namespace GDGeek{
 			#if UNITY_EDITOR
 			if(_material == null){
 
-				_material = UnityEditor.AssetDatabase.LoadAssetAtPath<Material>("Assets/GdGeek/Media/Voxel/Material/VoxelMesh.mat");
+				_material = Resources.Load<Material>("Materials/VoxelMat");  
+				if (_material == null) {  
+					Debug.LogError("未能加载材质：Materials/VoxelMat");  
+				}  
+				//_material = UnityEditor.AssetDatabase.LoadAssetAtPath<Material>("Assets/GdGeek/Media/Voxel/Material/VoxelMesh.mat");
 			
 				//_material.SetTexture();
 			}
@@ -35,7 +47,11 @@ namespace GDGeek{
 				init();
 				if (_voxFile) {
 					var vs = MagicaVoxelFormater.ReadFromFile (_voxFile).vs;
-		
+				
+					
+					vs = vs.adjust(this._adjustX, this._adjustY, this._adjustZ);
+					
+					
 					var data = VoxelBuilder.Struct2Data (vs, _size);
 					
 					var mesh = VoxelBuilder.Data2Mesh (data);

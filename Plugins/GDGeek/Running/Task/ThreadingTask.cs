@@ -52,6 +52,7 @@ namespace GDGeek{
 		}
 		
 		private void initImpl(){
+			Debug.LogWarning("init!!!");
 			threading = creater ();
 		}
 
@@ -85,8 +86,6 @@ namespace GDGeek{
 		
 		private void initImpl(){
 			threading = creater ();
-			
-			
 
 		}
 

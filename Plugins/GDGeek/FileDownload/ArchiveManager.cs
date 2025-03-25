@@ -58,10 +58,12 @@ namespace GDGeek.FileDownload
        
         public DataTask<ARCHIVE> load(FileData data, bool cache = true, CONTEXT context = default(CONTEXT))
         {
+            
+//            Debug.LogError(JsonUtility.ToJson(data));
 
             DataTask<ARCHIVE> task = new DataTask<ARCHIVE>();
             
-//            Debug.LogError(JsonUtility.ToJson(data));
+
             task.pushFront(() =>
             {
                 DataDownload<ARCHIVE, CONTEXT> download = this.getDownload(data.md5);
@@ -116,7 +118,7 @@ namespace GDGeek.FileDownload
                     {
                         TaskList tl = new TaskList();
                         ThreadingTask<ARCHIVE> read = new ThreadingTask<ARCHIVE>((() => _readFromWeb(file, context)));
-                   
+                    
                         tl.push(read);
                         
                         Task write = new ThreadingTask(() =>
@@ -180,13 +182,11 @@ namespace GDGeek.FileDownload
         {
             
             WEB web = new WEB();
-//            Debug.LogError(file.url);
             web.get(file.cdn, context);
             while (!web.done)
             {
                 await System.Threading.Tasks.Task.Yield();
             }
-
            
             return web.data;
         }

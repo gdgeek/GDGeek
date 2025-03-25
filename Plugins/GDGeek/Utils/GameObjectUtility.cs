@@ -48,7 +48,7 @@ namespace GDGeek {
             return true;
 
         }
-       
+        
         public static bool HasComponent<T>(this GameObject obj) where T : Component
         {
 

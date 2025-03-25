@@ -37,101 +37,93 @@ namespace GDGeek
     public class TaskManager : Singleton<TaskManager>
     {
 
-	    public TaskRunner partRunner { get; set; } = null;
+	    
+        private List<TaskRunner> runners_ = new List<TaskRunner>();
+        public void addRunner(TaskRunner r){
+            runners_.Add(r);
+        }
+        public void removeRunner(TaskRunner r)
+        {
+            runners_.Remove(r);
+        }
+        private TaskRunner partRunner {
+            get
+            {
+                if(runners_.Count == 0){
+                    return null;
+                }
+                return runners_[runners_.Count - 1];
+            }
+        }
 
 	
-		//private SortedDictionary<int, TaskRunner> 
-        protected void Awake(){
-           // base.Awake();
-			//TaskManager.instance_ = this;
-			/*if (_runner == null) {
-				_runner = this.gameObject.GetComponent<TaskRunner>();			
-			}
-			if (_runner == null) {
-				_runner = this.gameObject.AddComponent<TaskRunner>();	
-			}*/
-		}
-		public static TaskManager GetInstance(){
+        public static TaskManager GetInstance(){
 
-			return Singleton<TaskManager>.GetOrCreateInstance;
-		}
+            return Singleton<TaskManager>.GetOrCreateInstance;
+        }
 
-		public ITaskRunner globalRunner{
-			get{
-				TaskRunner runner = this.gameObject.AskComponent<TaskRunner> ();
-				return runner;
-			}
-		}
+        public ITaskRunner globalRunner =>this.gameObject.AskComponent<TaskRunner> ();
 
 #if UNITY_EDITOR
-		public ITaskRunner editorRunner{
-			get{
-				TaskRunnerInEditor runner = this.gameObject.AskComponent<TaskRunnerInEditor> ();
-				return runner;
-			}
-		}
+        public ITaskRunner editorRunner => this.gameObject.AskComponent<TaskRunnerInEditor>();
 #endif
-		public ITaskRunner runner{
-		get{
+        public ITaskRunner runner{
+            get{
 #if UNITY_EDITOR
-				if(!Application.isPlaying){
-					return editorRunner;
-				}
+                if(!Application.isPlaying){
+                    return editorRunner;
+                }
 #endif
 			
-				return globalRunner;
-			}
+                TaskRunner part  = this.partRunner;
+                if (part != null)
+                {
+                    return part;
+                }
 
-		}
+                return globalRunner;
+            }
+
+        }
 
 		
-		public static void AddIsOver(Task task, Func<bool> function)
+        public static void AddIsOver(Task task, Func<bool> function)
         {
-			Func<bool> isOver = task.isOver;
+            Func<bool> isOver = task.isOver;
             task.isOver = ()=> {
                 return (isOver() && (function.Invoke()));
             };
         }
 
         public static void AddUpdate(Task task, Action<float> function)
-		{
-			Action <float> update = task.update;
-			task.update = (float d) => {
-				update?.Invoke(d);
-				function?.Invoke(d);
-			};
-		}
+        {
+            Action <float> update = task.update;
+            task.update = (float d) => {
+                update?.Invoke(d);
+                function?.Invoke(d);
+            };
+        }
 
-		public static void PushBack(Task task, Action function)
-		{
-			Action shutdown = task.shutdown;
-			task.shutdown = () => {
-				shutdown?.Invoke();
-				function?.Invoke();
-			};
-		}
+        public static void PushBack(Task task, Action function)
+        {
+            Action shutdown = task.shutdown;
+            task.shutdown = () => {
+                shutdown?.Invoke();
+                function?.Invoke();
+            };
+        }
 	
-		public static void Run(Task task){
-			//task.runner.addTask(task);
-			
-			if (TaskManager.GetInstance().partRunner != null)
-			{
-				TaskManager.GetInstance().partRunner.addTask(task);
-				//task.runner.addTask(task);
-			}
-			else
-			{
-				TaskManager.GetInstance().runner.addTask(task);
-			}
-		}
+        public static void Run(Task task){
+            TaskManager.GetInstance().runner.addTask(task);
+        }
 
-		public static void PushFront(Task task, Action function){
-			Action init = task.init;
-			task.init = () =>{
-				function?.Invoke();
-				init?.Invoke();
-			};
-		}
+        public static void PushFront(Task task, Action function){
+            Action init = task.init;
+            task.init = () =>{
+                function?.Invoke();
+                init?.Invoke();
+            };
+        }
 
        
     }

@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
 namespace GDGeek{
 	
 	public class VoxelBuilder{
 		public static VoxelGeometry.MeshData Struct2Data(VoxelStruct vs, float size){
 			VoxelProduct product = new VoxelProduct();
-			VoxelData[] datas = vs.datas.ToArray ();
+			List<VoxelData> datas = vs.datas;
 			product.offset = new Vector3(0.5f, 0.5f, 0.5f);
 			product.size = size;
 			Build.Run (new VoxelData2Point (datas), product);

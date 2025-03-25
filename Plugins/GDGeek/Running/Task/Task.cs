@@ -44,8 +44,6 @@ namespace GDGeek{
 		public Func<bool> isOver = delegate () { return true; };
 		public static Task T => new Task();
 
-	//	public virtual TaskRunner runner { get; set; } = null;
-
 		public static void nextTick(Action action) => T.pushBack(action).run();
 		
 	};

@@ -191,7 +191,6 @@ namespace GDGeek{
 					box.x = br.ReadInt32 ();
 					box.y = br.ReadInt32 ();
 					box.z = br.ReadInt32 ();
-//					Debug.LogError(box);
 
 					magic.size = new MagicaVoxel.Size ();
 					magic.size.size = 12;

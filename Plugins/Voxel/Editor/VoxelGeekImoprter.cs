@@ -7,7 +7,7 @@ using System.IO;
 
 namespace GDGeek
 {
-    [ScriptedImporter(4, new[] { "vox" }, importQueueOffset: 4000, AllowCaching = false)]
+    [ScriptedImporter(8, new[] { "vox" }, importQueueOffset: 4000, AllowCaching = false)]
     public class VoxelGeekImoprter : ScriptedImporter
     {
         private Material _material = null;
@@ -20,8 +20,12 @@ namespace GDGeek
 
             if (_material == null)
             {
+                _material = Resources.Load<Material>("Materials/VoxelMat");  
+                if (_material == null) {  
+                    Debug.LogError("未能加载材质：Materials/VoxelMat");  
+                }  
 
-                _material = UnityEditor.AssetDatabase.LoadAssetAtPath<Material>("Assets/7DGame/Media/Materials/VoxelMat.mat");
+               // _material = UnityEditor.AssetDatabase.LoadAssetAtPath<Material>("Assets/7DGame/Media/Materials/VoxelMat.mat");
 
             }
             _material.SetVector("_Tiling", new Vector2(1f / 0.005f, 1f /  0.005f));

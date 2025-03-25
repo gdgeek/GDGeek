@@ -59,10 +59,15 @@ namespace GDGeek{
 
 
 		public State addAction(string evt, string nextState)
-			=> addAction (evt, (FSMEvent)=>nextState);
+		{
+			return addAction (evt, (FSMEvent)=>nextState);
+		}
+	
 
 
 		public State addAction(string evt, Func<FSMEvent, string> action){
+			
+			
 			if (!actionMap_.ContainsKey (evt)) {
 				actionMap_.Add (evt, action);		
 			} else {
@@ -80,6 +85,7 @@ namespace GDGeek{
 			return this;
 		}
 		public void addAction(string evt, Action<FSMEvent> action){
+			
 			this.addAction (evt, (FSMEvent e) =>{
 				action(e);
 				return "";

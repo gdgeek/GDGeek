@@ -82,7 +82,12 @@ namespace GDGeek
             get => _method;
             set => _method = value;
         }
-
+      
+        public UnityEngine.UIElements.EasingMode mode{
+            set{
+                _method = (Easing.Method)((int)value);
+            }
+        }
         /// <summary>
         /// Optional curve to apply to the tween's time factor value.
         /// </summary>
