@@ -48,7 +48,7 @@ namespace GDGeek{
 
 			this.pushFront(()=> {
 				gw = maker();
-			}).addisOver(()=> {
+			}).addIsOver(()=> {
 				if (gw && gw.enabled)
 				{
 					return false;

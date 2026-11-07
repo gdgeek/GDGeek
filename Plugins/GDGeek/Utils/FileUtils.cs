@@ -110,7 +110,8 @@ namespace GDGeek {
                     return new byte[0];
                 }
                 return File.ReadAllBytes(filename.Replace('\\', '/'));
-            } catch (Exception) {
+            } catch (Exception e) {
+                UnityEngine.Debug.LogError($"LoadFileData failed for '{filename}': {e.Message}");
                 return new byte[0];
             }
         }
@@ -132,8 +133,9 @@ namespace GDGeek {
                 //    File.Exists
                 return File.OpenRead(filename.Replace('\\', '/'));
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                UnityEngine.Debug.LogError($"LoadFileStream failed for '{filename}': {e.Message}");
                 return null;
             }
         }

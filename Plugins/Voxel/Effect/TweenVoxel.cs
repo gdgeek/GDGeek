@@ -36,8 +36,8 @@ namespace GDGeek{
 	public class TweenVoxel : Tween
 	{
 
-		public VoxelProperty from = null;
-		public VoxelProperty to = null;
+		[System.NonSerialized] public VoxelProperty from = null;
+		[System.NonSerialized] public VoxelProperty to = null;
 		// public bool updateTable = false;
 
 		// Transform mTrans;

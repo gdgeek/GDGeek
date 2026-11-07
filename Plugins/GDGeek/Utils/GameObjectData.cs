@@ -13,11 +13,11 @@ namespace GDGeek
         {
 
         }
-        public GameObjectData(GameObject go) {
+        public GameObjectData(GameObject go, Space type = Space.World)
+        {
             active = go.activeSelf;
             name = go.name;
-
-
+            transform = new TransformData(go.transform, type);
 
         }
     }

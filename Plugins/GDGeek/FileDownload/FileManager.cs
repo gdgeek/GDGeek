@@ -12,8 +12,6 @@ namespace GDGeek.FileDownload
     public class FileManager : GDGeek.Singleton<FileManager> {
 
       
-        [SerializeField]
-        private DataDownload<Stream, string> _download;
         private Dictionary<string, DataDownload<Stream, string>> downloads_ = new Dictionary<string, DataDownload<Stream, string>>();
         //private HashTable
       

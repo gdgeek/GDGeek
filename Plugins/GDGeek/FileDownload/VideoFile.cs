@@ -28,7 +28,7 @@ namespace GDGeek.FileDownload
     {
         public override DataTask<Video> read(string url, string type)
         {
-            throw new System.NotImplementedException();
+            return DataTask<Video>.T;
         }
     }
 
@@ -36,12 +36,12 @@ namespace GDGeek.FileDownload
     {
         public override void objectToStream(Stream stream, Video data)
         {
-            throw new System.NotImplementedException();
+            return;
         }
 
         public override Video streamToObject(Stream stream, string type)
         {
-            throw new System.NotImplementedException();
+            return new Video();
         }
     }
 

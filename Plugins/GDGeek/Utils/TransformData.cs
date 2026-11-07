@@ -9,7 +9,18 @@ namespace GDGeek
     {
         public TransformData() { }
 
-       
+        //重载 toString 方法，便于调试和日志输出
+        public override string ToString()
+        {
+            return $"Position: {position}, Rotation: {rotation.eulerAngles}, Scale: {scale}";
+        }
+
+        public Pose pose
+        {
+
+
+            get => new Pose(this.position, this.rotation);
+        }
 		
         public static Vector3 R2L(Vector3 lh)
         {
@@ -26,7 +37,7 @@ namespace GDGeek
             return qq;
            
         }
-
+/*
 
         public static Quaternion EulerToQuaternionZXY(Vector3 eulerAngles)
         {
@@ -61,7 +72,7 @@ namespace GDGeek
             // 依据ZXY顺序计算四元数，同时保持额外的180度旋转
             return qq * Quaternion.AngleAxis(180, Vector3.forward);
         }
-
+*/
         public static bool operator ==(TransformData lhs, TransformData rhs)
         {
             if (null == (object)(lhs) && null == (object)rhs)

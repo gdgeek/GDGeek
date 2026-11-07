@@ -69,8 +69,7 @@ namespace GDGeek{
 
 			Stream sw = new MemoryStream(voxFile.bytes);
 			System.IO.BinaryReader br = new System.IO.BinaryReader (sw); 
-			MagicaVoxel magic = null;
-			var vs =  MagicaVoxelFormater.ReadFromBinary (br).vs;
+				var vs =  MagicaVoxelFormater.ReadFromBinary (br).vs;
 			SplitVoxel split = new SplitVoxel (vs);
 			for (int i = 0; i < _boxes.Count; ++i) {
 				split.addBox (_boxes[i]);

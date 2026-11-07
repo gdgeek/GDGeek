@@ -31,74 +31,82 @@ using UnityEngine;
 using System.Collections;
 using System;
 
-namespace GDGeek{
+namespace GDGeek
+{
 
 
-	public class TaskState:State{
-	
-		protected static int index_ =  0;
+	public class TaskState : State
+	{
+
+		protected static int index_ = 0;
 
 		private void init(Func<Task> creater, FSM fsm, Func<FSMEvent, string> nextState)
 		{
 			string over = "over" + index_.ToString();
 
 			index_++;
-		
+
 			Task task = null;
 			this.onStart += () =>
 			{
 
 				task = creater();
-				task.pushBack(() => {
+				task.pushBack(() =>
+				{
 					fsm.post(over);
 				}).run();
 			};
 			this.onOver += () => { task.isOver = () => true; };
-			
-			this.addAction (over, nextState);
+
+			this.addAction(over, nextState);
 		}
 
 		public TaskState(Func<Task> creater, FSM fsm, string nextState)
 		{
-			init (creater, fsm, delegate(FSMEvent evt) {
+			init(creater, fsm, delegate (FSMEvent evt)
+			{
 				return nextState;
 			});
 		}
 
-	
+
 		public TaskState(Func<Task> creater, FSM fsm, Func<FSMEvent, string> nextState)
 		{
-		 	init (creater, fsm, nextState);
+			init(creater, fsm, nextState);
 		}
 
 
-		static public State Create(Func<Task> creater, FSM fsm, Func<FSMEvent, string> nextState){
+		static public State Create(Func<Task> creater, FSM fsm, Func<FSMEvent, string> nextState)
+		{
 			string over = "over" + index_.ToString();
 
 			index_++;
-			State state = new State ();
+			State state = new State();
 			Task task = null;
 			state.onStart += () =>
 			{
 
 				task = creater();
-				task.pushBack(() => {
-						fsm.post(over);
-					}).run();
+				task.pushBack(() =>
+				{
+					fsm.post(over);
+				}).run();
 			};
-		
+
 			state.onOver += () => { task.isOver = () => true; };
-			
-			state.addAction (over, nextState);
+
+			state.addAction(over, nextState);
 			return state;
 		}
 
-		static public State Create( Func<Task> creater, FSM fsm, string nextState){
-			return Create (creater, fsm, delegate {
+		static public State Create(Func<Task> creater, FSM fsm, string nextState)
+		{
+			return Create(creater, fsm, delegate
+			{
 				return nextState;
 			});
 		}
 
-		
+
 	}
 }

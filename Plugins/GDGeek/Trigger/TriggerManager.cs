@@ -14,13 +14,14 @@ namespace GDGeek {
         }
 
 
-        [SerializeField]
+        // Runtime trigger state must not be persisted in scenes or prefabs.
+        [NonSerialized]
         private Dictionary<string, ITrigger> opened_ = new Dictionary<string, ITrigger>();
 
-        [SerializeField]
+        [NonSerialized]
         private Dictionary<string, ITrigger> target_ = new Dictionary<string, ITrigger>();
 
-        [SerializeField]
+        [NonSerialized]
         private HashSet<string> busy_ = new HashSet<string>();
 
 

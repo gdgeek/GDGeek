@@ -6,6 +6,31 @@ using UnityEngine;
 namespace GDGeek {
 
     public static class GameObjectUtility {
+
+
+        public static void unregisterRunner(this GameObject obj)
+        {
+
+            if (!obj.HasComponent<TaskRunner>())
+            {
+                throw new Exception("GameObject does not have a TaskRunner component.");
+            }
+            TaskRunner runner = obj.GetComponent<TaskRunner>();
+            TaskManager.Instance.removeRunner(runner);
+            UnityEngine.Object.Destroy(runner);
+            
+        }
+        public static void registerRunner(this GameObject obj)
+        {
+            if (obj.HasComponent<TaskRunner>()) { 
+                throw new Exception("GameObject already has a TaskRunner component.");
+            }
+            TaskRunner runner = obj.AddComponent<TaskRunner>();
+
+            TaskManager.Instance.addRunner(runner);
+        }
+
+
         public static void EnableBehaviour<T>(this GameObject obj) where T : MonoBehaviour
         {
             T[] list = obj.GetComponents<T>();
@@ -30,7 +55,10 @@ namespace GDGeek {
 
             T[] list = obj.GetComponents<T>();
             foreach (T t in list) {
-                UnityEngine.Object.DestroyImmediate(t);
+                if (Application.isPlaying)
+                    UnityEngine.Object.Destroy(t);
+                else
+                    UnityEngine.Object.DestroyImmediate(t);
             }
 
 
@@ -57,12 +85,12 @@ namespace GDGeek {
             return (bool)component;
 
         }
-        public static T AboveComponent<T>(this GameObject obj) where T : Component
+        public static T AboveComponent<T>(this GameObject obj,  bool includeInactive = false) where T : Component
         {
             T component = obj.GetComponent<T>();
             if (!component)
             {
-                component = obj.GetComponentInParent<T>();
+                component = obj.GetComponentInParent<T>(includeInactive);
             }
             return component;
         }

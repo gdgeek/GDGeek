@@ -12,14 +12,18 @@ namespace GDGeek{
 
     public abstract class Singleton<T> : MonoBehaviour where T : Singleton<T>
     {
+        protected virtual void Awake()
+        { 
+            instance_ = this as T;
+        }
 
-		static T instance_ = null;
+		protected static T instance_ = null;
         
         static public bool IsInitialized {
             get
             {
 				if (instance_ == null) {
-					T[] types = FindObjectsOfType<T> ();
+					T[] types = FindObjectsByType<T>();
 					if (types == null || types.Length == 0) {
 						return false;
 					}
@@ -50,7 +54,7 @@ namespace GDGeek{
         }
         static private T FindInstance() {
 
-            T[] types = FindObjectsOfType<T>();
+            T[] types = FindObjectsByType<T>();
             if (types.Length > 1)
             {
                 Debug.LogError("Single instance " + typeof(T).Name + " can not have multi instance!!!!");

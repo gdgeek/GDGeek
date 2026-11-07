@@ -29,9 +29,11 @@ THE SOFTWARE.
 using UnityEngine;
 using System.Collections;
 
-namespace GDGeek{
-	public class StateBase {
-		
+namespace GDGeek
+{
+	public class StateBase
+	{
+
 		public delegate StateBase GetCurrState(string name);
 		//private string name_ = "";
 		protected string fatherName_ = "";
@@ -43,39 +45,49 @@ namespace GDGeek{
 			get;
 			set;
 		} = null;
-		
-		public string defSubState{
-			get{
+
+		public string defSubState
+		{
+			get
+			{
 				return defSubState_;
 			}
-			set{
+			set
+			{
 				defSubState_ = value;
 			}
 		}
 
-		public string fatherName{
-			get{
+		public string fatherName
+		{
+			get
+			{
 				return fatherName_;
 			}
-			set{
+			set
+			{
 				fatherName_ = value;
 			}
 		}
 
-		public StateBase(){
-			
+		public StateBase()
+		{
+
 		}
 
 
-		public virtual void start(){
-			
+		public virtual void start()
+		{
+
 		}
 
-		public virtual void over(){
-			
+		public virtual void over()
+		{
+
 		}
 
-		public virtual string postEvent(FSMEvent evt){
+		public virtual string postEvent(FSMEvent evt)
+		{
 			return "";
 		}
 	}

@@ -59,20 +59,22 @@ namespace GDGeek
 
 
         [SerializeField]
-        public UnityEvent _onFinished;
+        public UnityEvent _onFinished = new UnityEvent();
+
+        public UnityEvent onFinished => _onFinished;
 
 	 
 
         [SerializeField]
-        public UnityEvent _onStarted;
+        public UnityEvent _onStarted = new UnityEvent();
+
+        public UnityEvent onStarted => _onStarted;
 
         
-        public virtual void onStarted()
+        public virtual void doStarted()
         {
-            if (_onStarted != null)
-            {
-                _onStarted.Invoke();
-            }
+            _onStarted?.Invoke();
+            
         }
 
         [SerializeField]
@@ -136,7 +138,7 @@ namespace GDGeek
 
             if (!started_)
             {
-                onStarted();
+                doStarted();
                 started_ = true;
                 startTime_ = time + _delay;
             }

@@ -13,7 +13,6 @@ namespace GDGeek
 
         public DataTask then(Action callback)
         {
-            Debug.LogError("then");
             doThen += callback;
             return this;
         }

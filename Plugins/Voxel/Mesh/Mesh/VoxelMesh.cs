@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
 
 namespace GDGeek{
@@ -13,7 +14,8 @@ namespace GDGeek{
 			MeshRenderer renderer = filter.gameObject.GetComponent<MeshRenderer> ();
 			renderer.material.color = color;
 		}*/
-		public BoxCollider collider = null;
+		[FormerlySerializedAs("collider")]
+		public BoxCollider boxCollider = null;
 		public MeshFilter filter = null;
 	}
 

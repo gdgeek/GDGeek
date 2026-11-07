@@ -16,15 +16,7 @@ namespace GDGeek.Snapshot
 
         }
 
-        /*
-        public Target create(string type, Target.IParameter parameter) {
-            Target target = find(type);
-            if (target != null)
-            {
-                return target.create(parameter.toJson());
-            }
-            return null;
-        }*/
+      
         public Target create(string type, string json)
         {
             Target target = find(type);

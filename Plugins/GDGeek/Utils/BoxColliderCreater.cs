@@ -8,18 +8,9 @@ namespace GDGeek
 {
     public class BoxColliderCreater : MonoBehaviour, IExecute
     {
-        private enum State
-        {
-            none,
-            start,
-            running,
-            end,
-        }
-
         [SerializeField]
         private int unit_ = 40;
         private Renderer[] renderers_ = null;
-        private State state_ = State.none;
         private int index_ = 0;
         private bool hasBounds_ = false;
         private Bounds bounds_;
@@ -85,12 +76,7 @@ namespace GDGeek
         void Start()
         {
             renderers_ = target.transform.GetComponentsInChildren<Renderer>(includeInactive);
-/*
-            foreach (var renderer in renderers_)
-            {
-                Debug.LogError(renderer.gameObject.longName());
-            }*/
-            state_ = State.running;
+
             index_ = 0;
             hasBounds_ = false;
             bounds_ = new Bounds(Vector3.zero, Vector3.zero);
@@ -111,12 +97,10 @@ namespace GDGeek
                 int count = Mathf.Min(index_ + unit_, renderers_.Length);
                 for (; index_ < count; ++index_)
                 {
-//                    Debug.LogError(index_);
+
 
                     int mark = (1 << renderers_[index_].gameObject.layer) & this.layer;
-  //                  Debug.LogError(this.layer);
-//                    Debug.LogError((1 << renderers_[index_].gameObject.layer));
-
+ 
                     if (
                         renderers_[index_] != null
                         && renderers_[index_].gameObject.activeSelf
@@ -124,7 +108,6 @@ namespace GDGeek
                         && renderers_[index_].gameObject.layer != LayerMask.NameToLayer("UI")
                     )
                     {
-//                        Debug.LogError(renderers_[index_].bounds.size);
                         if (hasBounds_)
                         {
                             bounds_.Encapsulate(renderers_[index_].bounds);
@@ -143,15 +126,16 @@ namespace GDGeek
             }
             else
             {
+                shutdown();
                 Destroy(this);
             }
         }
 
-        void OnDestroy()
+        void shutdown()
         {
             collider_.center = bounds_.center;
             collider_.size = bounds_.size;
-            //修复Polygen包围盒问题：如果父物体是 Polygen，那么更新包围盒数据为父物体的包围盒（PolygenData.size, PolygenData.center）
+          
             if (transform.parent != null)
             {
                 PolygenEntity parentPolygenEntity = transform.parent.GetComponent<PolygenEntity>();

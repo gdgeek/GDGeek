@@ -13,12 +13,13 @@ namespace GDGeek.FileDownload
 
         private bool _usingLocalFile = false;
         private string persistentDataPath { get; set; }
-    
+
         private string streamingAssetsPath { get; set; }
 
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             persistentDataPath = Application.persistentDataPath;
             streamingAssetsPath = Application.streamingAssetsPath;
         }
@@ -55,14 +56,15 @@ namespace GDGeek.FileDownload
         {
             return System.IO.File.Exists(getPersistentDataPath(fileName));
         }
-       
+
 
         public bool exists(string fileName)
         {
-            if(_usingLocalFile && existsStreamingAssets(fileName))
+            if (_usingLocalFile && existsStreamingAssets(fileName))
             {
                 return true;
-            }else if (existsPersistentData(fileName))
+            }
+            else if (existsPersistentData(fileName))
             {
                 return true;
             }
@@ -71,14 +73,15 @@ namespace GDGeek.FileDownload
 
         public bool exists(string fileName, string md5)
         {
-            if(_usingLocalFile &&  existsStreamingAssets(fileName) && BuildFileMd5(getStreamingAssetsPath(fileName)) == md5)
-            {
-                return true;
-            }else if (existsPersistentData(fileName) && BuildFileMd5(getPersistentDataPath(fileName)) == md5)
+            if (_usingLocalFile && existsStreamingAssets(fileName) && BuildFileMd5(getStreamingAssetsPath(fileName)) == md5)
             {
                 return true;
             }
-           
+            else if (existsPersistentData(fileName) && BuildFileMd5(getPersistentDataPath(fileName)) == md5)
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -87,7 +90,7 @@ namespace GDGeek.FileDownload
 
         private static String BuildFileMd5(String path)
         {
-          
+
             try
             {
                 using (var fileStream = System.IO.File.OpenRead(path))//!!!!!!!!!
@@ -111,24 +114,41 @@ namespace GDGeek.FileDownload
             var stream = System.IO.File.OpenRead(getPathFile(fileName));
             return stream;
         }
-        
 
-        public void delete(string fileName) {
+
+        public void delete(string fileName)
+        {
             if (existsPersistentData(fileName))
             {
                 System.IO.File.Delete(getPersistentDataPath(fileName));
             }
-            
+
         }
         public FileStream write(string fileName)
         {
             string path = getPersistentDataPath(fileName);
 
             string directory = Path.GetDirectoryName(path);
-            if (!Directory.Exists(directory)) {
+            if (!Directory.Exists(directory))
+            {
                 Directory.CreateDirectory(directory);
             }
             return System.IO.File.OpenWrite(path);
+        }
+        public string getPath(string key)
+        {
+            return Path.Combine(Application.persistentDataPath, "Cache", key);
+        }
+
+        public void write(string key, byte[] data)
+        {
+            string path = getPath(key);
+            string directory = Path.GetDirectoryName(path);
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+            File.WriteAllBytes(path, data);
         }
     }
 

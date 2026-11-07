@@ -71,7 +71,6 @@ using System.IO;
                 byte[] subChunk1 = BitConverter.GetBytes(16);
                 memoryStream.Write(subChunk1, 0, 4);
 
-                UInt16 two = 2;
                 UInt16 one = 1;
 
                 byte[] audioFormat = BitConverter.GetBytes(one);

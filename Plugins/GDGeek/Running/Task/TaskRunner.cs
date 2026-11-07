@@ -43,22 +43,27 @@ namespace GDGeek{
 
 		public void update(float d){
 			
-			var tasks = new List<Task>();
+		//	var tasks = new List<Task>();
 			foreach (Task task in this.shutdown_)
 			{
 				task.shutdown ();
 			}
 			this.shutdown_.Clear();
-			foreach (Task task in this.tasks_)
+			Task[] list = this.tasks_.ToArray();
+			tasks_.Clear();
+			foreach (Task task in list)
 			{
 				task.update(d);
-				if(!task.isOver()){
-					tasks.Add(task);
-				}else{
-					shutdown_.Add (task);
+				if (!task.isOver())
+				{
+					tasks_.Add(task);
+				}
+				else
+				{
+					shutdown_.Add(task);
 				}
 			}
-			this.tasks_ = tasks;
+			//this.tasks_ = tasks;
 		}
 
 		

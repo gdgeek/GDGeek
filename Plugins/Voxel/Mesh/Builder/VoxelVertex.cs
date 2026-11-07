@@ -35,7 +35,6 @@ namespace GDGeek
             {
                 throw new System.Exception("Invalid normal");
             }
-            return Vector2.one;
         }
 
         public Vector2 xy => ToVector2(this.normal, this.position);

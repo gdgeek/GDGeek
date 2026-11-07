@@ -7,6 +7,7 @@ namespace GDGeek
     {
         public static async System.Threading.Tasks.Task<string> CompressStringAsync(string input)
         {
+
             return await System.Threading.Tasks.Task.Run(() =>
             {
                 byte[] inputBytes = Encoding.UTF8.GetBytes(input);
@@ -22,7 +23,46 @@ namespace GDGeek
                 }
             });
         }
+        public static async System.Threading.Tasks.Task<byte[]> DecompressBytesAsync(byte[] compressedBytes)
+        {
+            return await System.Threading.Tasks.Task.Run(() =>
+            {
 
+
+                using (MemoryStream inputStream = new MemoryStream(compressedBytes))
+                {
+                    using (GZipInputStream inflaterStream = new GZipInputStream(inputStream))
+                    {
+                        using (MemoryStream outputStream = new MemoryStream())
+                        {
+                            byte[] buffer = new byte[4096];
+                            int bytesRead;
+                            while ((bytesRead = inflaterStream.Read(buffer, 0, buffer.Length)) > 0)
+                            {
+                                outputStream.Write(buffer, 0, bytesRead);
+                            }
+
+                            return outputStream.ToArray();
+                        }
+                    }
+                }
+            });
+        }
+        public static async System.Threading.Tasks.Task<byte[]> CompressBytesAsync(byte[] inputBytes)
+        {
+            return await System.Threading.Tasks.Task.Run(() =>
+            {
+                using (MemoryStream outputStream = new MemoryStream())
+                {
+                    using (GZipOutputStream deflaterStream = new GZipOutputStream(outputStream))
+                    {
+                        deflaterStream.Write(inputBytes, 0, inputBytes.Length);
+                    }
+                    //    byte[] compressedBytes = outputStream.ToArray();
+                    return outputStream.ToArray();
+                }
+            });
+        }
         // 异步解压缩字符串
         public static async System.Threading.Tasks.Task<string> DecompressStringAsync(string input)
         {
@@ -65,6 +105,20 @@ namespace GDGeek
             }
         }
 
+        public static byte[] CompressBytes(byte[] inputBytes)
+        {
+            //byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+            using (MemoryStream outputStream = new MemoryStream())
+            {
+                using (GZipOutputStream deflaterStream = new GZipOutputStream(outputStream))
+                {
+                    deflaterStream.Write(inputBytes, 0, inputBytes.Length);
+                }
+                byte[] compressedBytes = outputStream.ToArray();
+                return compressedBytes;
+            }
+        }
+
         // 解压缩字符串
         public static string DecompressString(string input)
         {
@@ -85,6 +139,30 @@ namespace GDGeek
 
                         byte[] decompressedBytes = outputStream.ToArray();
                         return Encoding.UTF8.GetString(decompressedBytes);
+                    }
+                }
+            }
+        }
+        
+        public static  byte[]  DecompressBytes( byte[] compressedBytes)
+        {
+         //   byte[] compressedBytes = System.Convert.FromBase64String(input);
+
+            using (MemoryStream inputStream = new MemoryStream(compressedBytes))
+            {
+                using (GZipInputStream inflaterStream = new GZipInputStream(inputStream))
+                {
+                    using (MemoryStream outputStream = new MemoryStream())
+                    {
+                        byte[] buffer = new byte[4096];
+                        int bytesRead;
+                        while ((bytesRead = inflaterStream.Read(buffer, 0, buffer.Length)) > 0)
+                        {
+                            outputStream.Write(buffer, 0, bytesRead);
+                        }
+
+                        byte[] decompressedBytes = outputStream.ToArray();
+                        return decompressedBytes;
                     }
                 }
             }

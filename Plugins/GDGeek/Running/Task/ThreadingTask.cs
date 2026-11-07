@@ -35,90 +35,121 @@ using System.Threading.Tasks;
 using GDGeek.FileDownload;
 
 
-namespace GDGeek{
+namespace GDGeek
+{
 	public class ThreadingTask : DataTask
 	{
 
 		private Func<System.Threading.Tasks.Task> creater { get; }
 		private System.Threading.Tasks.Task threading { get; set; }
-		
-		private bool run_ = true;
-		public ThreadingTask(Func<System.Threading.Tasks.Task> func, bool run = true)
+
+
+		public ThreadingTask(Func<System.Threading.Tasks.Task> taskCreator)
 		{
-			run_ = run;
-			creater = func;
-			this.init = this.initImpl;
-			this.update = this.updateImpl;
+			creater = taskCreator ?? throw new ArgumentNullException(nameof(taskCreator));
+			this.init = initImpl;
+			this.update = updateImpl;
 		}
-		
-		private void initImpl(){
+
+		private void initImpl()
+		{
 			Debug.LogWarning("init!!!");
-			threading = creater ();
+			threading = creater();
 		}
 
 
-		private void updateImpl(float d){
-			if (threading.IsCompleted)
+		private void updateImpl(float deltaTime)
+		{
+			if (threading == null) return;
+
+			if (threading.IsCompletedSuccessfully)
 			{
 				this.resolve();
-			}else if (threading.IsCanceled)
-			{
-				this.reject(new Exception("Threading Canceled"));
-			}else if (threading.IsFaulted)
-			{
-				this.reject(threading.Exception);
+				disposeTask();
 			}
+			else if (threading.IsCanceled)
+			{
+				Debug.LogError("Task was canceled.");
+				this.reject(new OperationCanceledException("Task was canceled."));
+				disposeTask();
+			}
+			else if (threading.IsFaulted)
+			{
+				Debug.LogError("Task faulted.");
+				this.reject(threading.Exception?.InnerException ?? threading.Exception);
+				disposeTask();
+			}
+		}
 
+		private void disposeTask()
+		{
+			threading?.Dispose();
+			threading = null;
 		}
 	}
 	public class ThreadingTask<T> : DataTask<T>
 	{
 
+
+
 		private Func<System.Threading.Tasks.Task<T>> creater { get; set; }
 		private System.Threading.Tasks.Task<T> threading { get; set; }
-		private bool run_ = true;
-		public ThreadingTask(Func<System.Threading.Tasks.Task<T>> func, bool run = true){
-			run_ = run;
-			creater = func;
-			this.init = this.initImpl;
-			this.update = this.updateImpl;
-		}
-		
-		private void initImpl(){
-			threading = creater ();
 
+
+		public ThreadingTask(Func<Task<T>> taskCreator)
+		{
+			creater = taskCreator ?? throw new ArgumentNullException(nameof(taskCreator));
+			this.init = initImpl;
+			this.update = updateImpl;
 		}
 
 
-		private void updateImpl(float d){
-			
-			if (threading.IsCompleted)
+
+		private void initImpl()
+		{
+			threading = creater();
+
+		}
+
+
+		private void updateImpl(float deltaTime)
+		{
+
+			if (threading == null) return;
+
+			if (threading.IsCompletedSuccessfully)
 			{
-				var result = default(T);
 				try
 				{
-					result = threading.Result;
+					var result = threading.Result; // 如果 Task 成功，访问 Result 不会抛出异常
 					this.resolve(result);
-				}catch (Exception e)
-				{
-					
-					//threading.Dispose();
-					this.reject(e);//这里调用了reject方法
 				}
-
-				
-				
-			}else if (threading.IsCanceled)
+				catch (Exception ex)
+				{
+					this.reject(ex);
+				}
+				finally
+				{
+					disposeTask();
+				}
+			}
+			else if (threading.IsCanceled)
 			{
-				threading.Dispose();
-				this.reject(new Exception("Threading Canceled"));
-			}else if (threading.IsFaulted)
+				this.reject(new OperationCanceledException("Task was canceled."));
+				disposeTask();
+			}
+			else if (threading.IsFaulted)
 			{
-				Debug.LogError("3");
-				this.reject(threading.Exception);
+				this.reject(threading.Exception?.InnerException ?? threading.Exception);
+				disposeTask();
 			}
 
 		}
+		private void disposeTask()
+		{
+			threading?.Dispose();
+			threading = null;
+		}
 	}
-	
+
 }

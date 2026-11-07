@@ -14,7 +14,7 @@ public class VoxelBoom : MonoBehaviour {
 
 	public static Vector3 RandomPosition (VoxelMesh mesh){
 
-		var box = mesh.collider;
+		var box = mesh.boxCollider;
 		return (box.bounds.center + new Vector3(Random.Range(-box.bounds.size.x/2, box.bounds.size.x/2), 
 			Random.Range(-box.bounds.size.y/2, box.bounds.size.y/2),
 			Random.Range(-box.bounds.size.z/2, box.bounds.size.z/2)));

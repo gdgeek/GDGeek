@@ -19,7 +19,7 @@ namespace GDGeek.Snapshot
         /*
         internal override Lens.TargetCreateTask createTask(string json, PhotoTransform photoTransform)
         {
-            throw new System.NotImplementedException();
+            return null;
         }*/
     }
 }

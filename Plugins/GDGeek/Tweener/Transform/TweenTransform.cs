@@ -32,10 +32,10 @@ namespace GDGeek
             }
         }
 
-        public override void onStarted()
+        public override void doStarted()
         {
             this.fromData_ = new TransformData(target.transform, Space.World);
-            base.onStarted();
+            base.doStarted();
         }
       
         [SerializeField]

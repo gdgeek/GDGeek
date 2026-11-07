@@ -11,7 +11,7 @@ namespace GDGeek.Snapshot
             Target[] targets = this.gameObject.GetComponentsInChildren<Target>();
             for (int i = 0; i < targets.Length; ++i) {
                     
-                DestroyImmediate(targets[i].gameObject);
+                Destroy(targets[i].gameObject);
             }
         }
      

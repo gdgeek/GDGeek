@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace GDGeek{
     
+    /*
         // 示例类
         public class MyClass
         {
@@ -18,7 +19,7 @@ namespace GDGeek{
             }
         }
         // 定义接口
-    
+    */
     
     public interface IMethodInvoker
     {

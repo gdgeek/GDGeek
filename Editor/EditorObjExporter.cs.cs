@@ -1,6 +1,7 @@
 ﻿
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -68,8 +69,8 @@ public class EditorObjExporter : ScriptableObject
 
 				objMaterial.name = mats[material].name;
 
-				if (mats[material].mainTexture)
-					objMaterial.textureName = EditorUtility.GetAssetPath(mats[material].mainTexture);
+					if (mats[material].mainTexture)
+						objMaterial.textureName = AssetDatabase.GetAssetPath(mats[material].mainTexture);
 				else
 					objMaterial.textureName = null;
 
@@ -280,7 +281,8 @@ public class EditorObjExporter : ScriptableObject
 				mf[i] = (MeshFilter)mfList[i];
 			}
 
-			string filename = EditorApplication.currentScene + "_" + exportedObjects;
+				string scenePath = EditorSceneManager.GetActiveScene().path;
+				string filename = (string.IsNullOrEmpty(scenePath) ? "Untitled" : scenePath) + "_" + exportedObjects;
 
 			int stripIndex = filename.LastIndexOf('/');//FIXME: Should be Path.PathSeparator
 

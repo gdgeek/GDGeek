@@ -117,6 +117,10 @@ namespace GDGeek
                     this.states_[state.fatherName].defSubState = stateName;
                 }
             }
+            if (debug_)
+            { 
+                  Debug.Log("addState:" + stateName + " father:" + state.fatherName);
+            }
             state.name = stateName;
             this.states_[stateName] = state;
 

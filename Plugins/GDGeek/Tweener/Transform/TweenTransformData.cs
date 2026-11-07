@@ -3,22 +3,24 @@ namespace GDGeek
 {
     public class TweenTransformData : Tween
     {
-     
-        private TransformData from {
+
+        private TransformData from
+        {
             set;
             get;
         }
-        private TransformData to {
+        private TransformData to
+        {
             set;
             get;
         }
         [SerializeField]
         private Space space = Space.World;
-      
+
         //private Transform trans_;
 
-       // public Transform cachedTransform { get { if (trans_ == null) trans_ = target.transform; return trans_; } }
-    
+        // public Transform cachedTransform { get { if (trans_ == null) trans_ = target.transform; return trans_; } }
+
         override protected void onUpdate(float factor, bool isFinished)
         {
             if (this.space == Space.World)
@@ -27,7 +29,8 @@ namespace GDGeek
                 transform.rotation = Quaternion.Lerp(from.rotation, to.rotation, factor);
                 transform.setGlobalScale(from.scale * (1f - factor) + to.scale * factor);
             }
-            else {
+            else
+            {
 
                 transform.localPosition = from.position * (1f - factor) + to.position * factor;
                 transform.localRotation = Quaternion.Lerp(from.rotation, to.rotation, factor);
@@ -39,11 +42,25 @@ namespace GDGeek
         /// <summary>
         /// Start the tweening operation.
         /// </summary>
-        static public TweenTransformData Begin(GameObject go, float duration, TransformData data, Space space = Space.World) {
+        static public TweenTransformData Begin(GameObject go, float duration, TransformData data, Space space = Space.World, bool relative = false)
+        {
             TweenTransformData component = Tween.Begin<TweenTransformData>(go, duration);
             component.space = space;
             component.from = new TransformData(component.target.transform, space);
-            component.to = data;
+
+            if (relative)
+            {
+                component.to = new TransformData(
+                    component.from.position + data.position,
+                    component.from.rotation * data.rotation,
+                    Vector3.Scale(component.from.scale, data.scale)
+                );
+            }
+            else
+            {
+                component.to = data;
+            }
+
             if (duration <= 0f)
             {
                 component.sample(1f, true);
@@ -52,6 +69,6 @@ namespace GDGeek
             return component;
 
         }
-      
+
     }
 }

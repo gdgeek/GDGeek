@@ -33,7 +33,7 @@ namespace GDGeek
 {
     public static class TaskUtility
     {
-        public static Task addisOver(this Task task, Func<bool> function)
+        public static Task addIsOver(this Task task, Func<bool> function)
         {
             TaskManager.AddIsOver(task, function);
             return task;

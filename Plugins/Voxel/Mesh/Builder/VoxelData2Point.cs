@@ -5,12 +5,10 @@ using System.Collections.Generic;
 namespace GDGeek
 {
 	public class VoxelData2Point
-	{
-		private List<VoxelData> data_ = null;
+		{
+			private List<VoxelData> data_ = null;
 
-		private bool adjust_ = false;
-	
-		public VoxelData2Point(){
+			public VoxelData2Point(){
 		}
 
 
