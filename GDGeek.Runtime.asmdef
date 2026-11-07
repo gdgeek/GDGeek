@@ -1,0 +1,8 @@
+{
+    "name": "GDGeek.Runtime",
+    "autoReferenced": true,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Unity.SharpZipLib.dll"
+    ]
+}

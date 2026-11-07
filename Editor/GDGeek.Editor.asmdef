@@ -1,0 +1,14 @@
+{
+    "name": "GDGeek.Editor",
+    "references": [
+        "GDGeek.Runtime"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "autoReferenced": true,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ]
+}
