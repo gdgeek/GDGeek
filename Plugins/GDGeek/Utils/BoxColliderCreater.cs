@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using _7DGame_com;
 using UnityEngine;
 
 namespace GDGeek
@@ -138,12 +137,12 @@ namespace GDGeek
           
             if (transform.parent != null)
             {
-                PolygenEntity parentPolygenEntity = transform.parent.GetComponent<PolygenEntity>();
-                if (parentPolygenEntity != null)
+                var parentBounds = transform.parent.GetComponent<IBoxColliderBoundsProvider>();
+                if (parentBounds is Component providerComponent && providerComponent != null)
                 {
                     Debug.Log("父物体包含 PolygenEntity 组件");
-                    collider_.center = parentPolygenEntity.center;
-                    collider_.size = parentPolygenEntity.size;
+                    collider_.center = parentBounds.Center;
+                    collider_.size = parentBounds.Size;
                 }
             }
 
