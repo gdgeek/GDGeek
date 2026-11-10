@@ -245,6 +245,12 @@
         },
         {
             "m_Id": "c1fd891c0e9340e79ca83a9b145bd1f3"
+        },
+        {
+            "m_Id": "b6edd4357916539aaa31253f9d4f2e52"
+        },
+        {
+            "m_Id": "c4691ccc49305747aab8a57023532193"
         }
     ],
     "m_GroupDatas": [
@@ -1055,12 +1061,40 @@
                 },
                 "m_SlotId": 0
             }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "b6edd4357916539aaa31253f9d4f2e52"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "336712969d944a9084a74363f5cd043e"
+                },
+                "m_SlotId": 41
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "c4691ccc49305747aab8a57023532193"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "336712969d944a9084a74363f5cd043e"
+                },
+                "m_SlotId": 42
+            }
         }
     ],
     "m_VertexContext": {
         "m_Position": {
-            "x": 27.999908447265626,
-            "y": -170.49998474121095
+            "x": 27.999908447265625,
+            "y": -170.49998474121094
         },
         "m_Blocks": [
             {
@@ -1185,7 +1219,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "046fe03935f7460387562f99176bea1f",
     "m_Id": 1010945412,
-    "m_DisplayName": "Metallic A.",
+    "m_DisplayName": "Metallic Alpha",
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "_Metallic_A",
@@ -1749,19 +1783,19 @@
 }
 
 {
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.SubGraphNode",
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.CustomFunctionNode",
     "m_ObjectId": "28fa348a315749fca5d215fea901f72d",
     "m_Group": {
         "m_Id": "394ceba797964357861d4a38c538d405"
     },
-    "m_Name": "BaseSpecular",
+    "m_Name": "VoxelSpecularMap (Custom Function)",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
             "x": -1136.0,
-            "y": 283.20001220703127,
+            "y": 283.20001220703125,
             "width": 171.199951171875,
             "height": 141.59994506835938
         }
@@ -1787,30 +1821,18 @@
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 1,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_SerializedSubGraph": "{\n    \"subGraph\": {\n        \"fileID\": -5475051401550479605,\n        \"guid\": \"aa9027601a1ec344db88f43b1435165c\",\n        \"type\": 3\n    }\n}",
-    "m_PropertyGuids": [
-        "2328b183-b4c2-442d-a5d3-e8514be7fc67",
-        "290f9e1c-0a89-40f3-88f5-a044fc95fdc0",
-        "17bed8fe-191e-466b-abac-67c7c47c131a",
-        "bead86b9-4864-4c9f-818b-195d5f6a2c54",
-        "732eefc2-7a58-4fdc-95e7-7414f70c53c9"
-    ],
-    "m_PropertyIds": [
-        1360081327,
-        -308153119,
-        -1935601265,
-        -83415293,
-        -506102024
-    ],
-    "m_Dropdowns": [],
-    "m_DropdownSelectedEntries": []
+    "m_SourceType": 0,
+    "m_FunctionName": "VoxelSpecularMap",
+    "m_FunctionSource": "9b3c61a092ac5dc69533acb7b249fecc",
+    "m_FunctionSourceUsePragmas": false,
+    "m_FunctionBody": ""
 }
 
 {
@@ -2102,13 +2124,13 @@
 }
 
 {
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.SubGraphNode",
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.CustomFunctionNode",
     "m_ObjectId": "336712969d944a9084a74363f5cd043e",
     "m_Group": {
         "m_Id": "394ceba797964357861d4a38c538d405"
     },
-    "m_Name": "BaseHeight",
+    "m_Name": "VoxelParallax (Custom Function)",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
@@ -2128,27 +2150,27 @@
         },
         {
             "m_Id": "7f766476dc214ff6836fb8f8d427bee5"
+        },
+        {
+            "m_Id": "5e6d3b3b6b3854438669a090479d0cd6"
+        },
+        {
+            "m_Id": "cd23137f8dae5742a9db7db3a92e91ac"
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 1,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_SerializedSubGraph": "{\n    \"subGraph\": {\n        \"fileID\": -5475051401550479605,\n        \"guid\": \"520efb17c25523e4a8cae90d96b9eb4c\",\n        \"type\": 3\n    }\n}",
-    "m_PropertyGuids": [
-        "a54bae38-88f2-413d-926e-4c1ff665c16f",
-        "2a05019a-17aa-4997-8143-6a0912c1d98d"
-    ],
-    "m_PropertyIds": [
-        -1795478098,
-        -417229661
-    ],
-    "m_Dropdowns": [],
-    "m_DropdownSelectedEntries": []
+    "m_SourceType": 0,
+    "m_FunctionName": "VoxelParallax",
+    "m_FunctionSource": "9b3c61a092ac5dc69533acb7b249fecc",
+    "m_FunctionSourceUsePragmas": false,
+    "m_FunctionBody": ""
 }
 
 {
@@ -2713,20 +2735,20 @@
 }
 
 {
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.SubGraphNode",
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.CustomFunctionNode",
     "m_ObjectId": "45b02ecb88e34eabb8dbaabd49e96436",
     "m_Group": {
         "m_Id": "394ceba797964357861d4a38c538d405"
     },
-    "m_Name": "BaseSmoothness",
+    "m_Name": "VoxelSmoothness (Custom Function)",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -548.0000610351563,
-            "y": 72.80001068115235,
-            "width": 204.79998779296876,
+            "x": -548.0000610351562,
+            "y": 72.80001068115234,
+            "width": 204.79998779296875,
             "height": 165.5999755859375
         }
     },
@@ -2755,27 +2777,11 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_SerializedSubGraph": "{\n    \"subGraph\": {\n        \"fileID\": -5475051401550479605,\n        \"guid\": \"0091e3f7c40286d43844cb5b1ce631b7\",\n        \"type\": 3\n    }\n}",
-    "m_PropertyGuids": [
-        "1cf3653b-3b0e-4390-ae42-a18443a1de65",
-        "ea77cec9-a16b-40c7-9cd7-288322a2264c",
-        "ffb82eeb-2ce6-4e9a-8819-86439260ea98",
-        "8cad1f65-22f4-4390-8bf3-a4ba25d1db2a",
-        "239dd4ff-6979-4857-85e4-9169808c3d5e",
-        "b717811b-7511-4777-aa59-a5645e712fe3",
-        "cec137a6-5dd2-492a-acce-dd933b6a36dc"
-    ],
-    "m_PropertyIds": [
-        -1105412648,
-        1706957340,
-        1783528215,
-        1598168895,
-        1550243203,
-        2011880702,
-        -939471133
-    ],
-    "m_Dropdowns": [],
-    "m_DropdownSelectedEntries": []
+    "m_SourceType": 1,
+    "m_FunctionName": "VoxelSmoothness",
+    "m_FunctionSource": "",
+    "m_FunctionSourceUsePragmas": false,
+    "m_FunctionBody": "Out = (_Is_Texture_Mode ? _Texture : _Workflow) * _Smoothness;"
 }
 
 {
@@ -3671,19 +3677,19 @@
 }
 
 {
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.SubGraphNode",
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.CustomFunctionNode",
     "m_ObjectId": "7841a6c6a19f4126890cce06cb8bde5b",
     "m_Group": {
         "m_Id": "394ceba797964357861d4a38c538d405"
     },
-    "m_Name": "BaseEmission",
+    "m_Name": "VoxelEmission (Custom Function)",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
             "x": -1136.0,
-            "y": 708.0000610351563,
+            "y": 708.0000610351562,
             "width": 179.199951171875,
             "height": 141.5999755859375
         }
@@ -3703,28 +3709,18 @@
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 1,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_SerializedSubGraph": "{\n    \"subGraph\": {\n        \"fileID\": -5475051401550479605,\n        \"guid\": \"2f996953761bf1e409a3c42d7d34c8f0\",\n        \"type\": 3\n    }\n}",
-    "m_PropertyGuids": [
-        "d6b25d57-66f8-4b2a-a464-88fedff84a5a",
-        "e0c962f4-0e73-4ef9-8c13-8f2dcbaa0d5e",
-        "6d3ad7b8-b840-47dc-b341-5b026d376837",
-        "1112ff85-720a-4aaa-b6bf-093aa603fd16"
-    ],
-    "m_PropertyIds": [
-        962242516,
-        -575482432,
-        534059302,
-        2001482143
-    ],
-    "m_Dropdowns": [],
-    "m_DropdownSelectedEntries": []
+    "m_SourceType": 0,
+    "m_FunctionName": "VoxelEmission",
+    "m_FunctionSource": "9b3c61a092ac5dc69533acb7b249fecc",
+    "m_FunctionSourceUsePragmas": false,
+    "m_FunctionBody": ""
 }
 
 {
@@ -4011,21 +4007,21 @@
 }
 
 {
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.SubGraphNode",
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.CustomFunctionNode",
     "m_ObjectId": "8b929f22a558446eb1265267a66441b0",
     "m_Group": {
         "m_Id": "394ceba797964357861d4a38c538d405"
     },
-    "m_Name": "BaseTexture",
+    "m_Name": "VoxelBaseTexture (Custom Function)",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
             "x": -1136.0,
-            "y": -0.000003112792910542339,
-            "width": 178.39996337890626,
-            "height": 141.60000610351563
+            "y": -3.112792910542339e-06,
+            "width": 178.39996337890625,
+            "height": 141.60000610351562
         }
     },
     "m_Slots": [
@@ -4046,28 +4042,18 @@
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 1,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_SerializedSubGraph": "{\n    \"subGraph\": {\n        \"fileID\": -5475051401550479605,\n        \"guid\": \"1d7b4f75db4046f439d43672f4e6f241\",\n        \"type\": 3\n    }\n}",
-    "m_PropertyGuids": [
-        "659223ad-691f-4b85-9b4e-41e68843e53e",
-        "0c1bcf62-1cfe-443f-9ba1-9f947812b9ac",
-        "c59a11eb-1683-4348-be97-4166670a7504",
-        "b4877fda-88ce-45fe-b04f-d18b83948ad5"
-    ],
-    "m_PropertyIds": [
-        -156022879,
-        1879203967,
-        -454649167,
-        -1356714969
-    ],
-    "m_Dropdowns": [],
-    "m_DropdownSelectedEntries": []
+    "m_SourceType": 0,
+    "m_FunctionName": "VoxelBaseTexture",
+    "m_FunctionSource": "9b3c61a092ac5dc69533acb7b249fecc",
+    "m_FunctionSourceUsePragmas": false,
+    "m_FunctionBody": ""
 }
 
 {
@@ -4650,13 +4636,13 @@
 }
 
 {
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.SubGraphNode",
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.CustomFunctionNode",
     "m_ObjectId": "ab01730ca2a64b1fa880044ee5b6cfc3",
     "m_Group": {
         "m_Id": "394ceba797964357861d4a38c538d405"
     },
-    "m_Name": "BaseOcclusion",
+    "m_Name": "VoxelOcclusion (Custom Function)",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
@@ -4664,7 +4650,7 @@
             "x": -1159.5001220703125,
             "y": 565.0,
             "width": 202.0,
-            "height": 143.00006103515626
+            "height": 143.00006103515625
         }
     },
     "m_Slots": [
@@ -4682,26 +4668,18 @@
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 1,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_SerializedSubGraph": "{\n    \"subGraph\": {\n        \"fileID\": -5475051401550479605,\n        \"guid\": \"70284da1c2d8ad847a4c5cb694fd493c\",\n        \"type\": 3\n    }\n}",
-    "m_PropertyGuids": [
-        "fdbc5d89-5494-4ca3-abd9-68a290142278",
-        "4afab410-b23e-4e63-b26a-4fe899c8a343",
-        "8ebb8e62-8c26-4fd1-a445-9c089faff6aa"
-    ],
-    "m_PropertyIds": [
-        1800782886,
-        -1351244795,
-        1661003903
-    ],
-    "m_Dropdowns": [],
-    "m_DropdownSelectedEntries": []
+    "m_SourceType": 0,
+    "m_FunctionName": "VoxelOcclusion",
+    "m_FunctionSource": "9b3c61a092ac5dc69533acb7b249fecc",
+    "m_FunctionSourceUsePragmas": false,
+    "m_FunctionBody": ""
 }
 
 {
@@ -4755,7 +4733,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "aee6a51af5b74b1088624967bff5511c",
     "m_Id": 8830213,
-    "m_DisplayName": "Spec A.",
+    "m_DisplayName": "Specular Alpha",
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "_Spec_A",
@@ -4823,21 +4801,21 @@
 }
 
 {
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.SubGraphNode",
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.CustomFunctionNode",
     "m_ObjectId": "b128b5d64e8b4467bf5f06f7ef8d4834",
     "m_Group": {
         "m_Id": "394ceba797964357861d4a38c538d405"
     },
-    "m_Name": "BaseMetalic",
+    "m_Name": "VoxelMetallicMap (Custom Function)",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
             "x": -1136.0,
-            "y": 141.60000610351563,
+            "y": 141.60000610351562,
             "width": 175.199951171875,
-            "height": 141.60000610351563
+            "height": 141.60000610351562
         }
     },
     "m_Slots": [
@@ -4858,30 +4836,18 @@
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 1,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_SerializedSubGraph": "{\n    \"subGraph\": {\n        \"fileID\": -5475051401550479605,\n        \"guid\": \"96e19d22bf2426842bbf1255b72d0b62\",\n        \"type\": 3\n    }\n}",
-    "m_PropertyGuids": [
-        "f9dadb1b-cd9d-45ba-9064-0a92c2c3bfb3",
-        "df9107f9-281d-404c-9183-8ddaaee222be",
-        "c43f7037-b0d5-45f6-87e9-03ab13b00cf7",
-        "1b1c9bbc-c5a7-4f45-8647-15e1e37ad03a",
-        "cfb90a80-f099-4245-9a7a-54ffac705f9a"
-    ],
-    "m_PropertyIds": [
-        -1646939692,
-        -76394789,
-        -574187146,
-        -1885576322,
-        -386404305
-    ],
-    "m_Dropdowns": [],
-    "m_DropdownSelectedEntries": []
+    "m_SourceType": 0,
+    "m_FunctionName": "VoxelMetallicMap",
+    "m_FunctionSource": "9b3c61a092ac5dc69533acb7b249fecc",
+    "m_FunctionSourceUsePragmas": false,
+    "m_FunctionBody": ""
 }
 
 {
@@ -5463,21 +5429,21 @@
 }
 
 {
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.SubGraphNode",
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.CustomFunctionNode",
     "m_ObjectId": "cd05ce9c9faf449aa1f50402ed735644",
     "m_Group": {
         "m_Id": "394ceba797964357861d4a38c538d405"
     },
-    "m_Name": "WorkflowMix",
+    "m_Name": "VoxelWorkflow (Custom Function)",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
             "x": -936.800048828125,
-            "y": 235.19996643066407,
-            "width": 202.39996337890626,
-            "height": 189.59999084472657
+            "y": 235.19996643066406,
+            "width": 202.39996337890625,
+            "height": 189.59999084472656
         }
     },
     "m_Slots": [
@@ -5507,30 +5473,18 @@
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 1,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_SerializedSubGraph": "{\n    \"subGraph\": {\n        \"fileID\": -5475051401550479605,\n        \"guid\": \"2dba927738d99884197259a876ebe1b7\",\n        \"type\": 3\n    }\n}",
-    "m_PropertyGuids": [
-        "fd3aabd7-73b6-46e1-bf94-3accfce99e0c",
-        "6555592c-8a16-4422-b963-7a19077d4c04",
-        "7b9098fc-2101-49c1-a2e5-ca0cccd960b9",
-        "931e0254-2b2c-4d5e-8a0e-8029f79a46f7",
-        "8cbb0931-81cf-4fe3-82e5-f701dcc3501a"
-    ],
-    "m_PropertyIds": [
-        2071962914,
-        1010945412,
-        -2013559405,
-        8830213,
-        -654332256
-    ],
-    "m_Dropdowns": [],
-    "m_DropdownSelectedEntries": []
+    "m_SourceType": 0,
+    "m_FunctionName": "VoxelWorkflow",
+    "m_FunctionSource": "9b3c61a092ac5dc69533acb7b249fecc",
+    "m_FunctionSourceUsePragmas": false,
+    "m_FunctionBody": ""
 }
 
 {
@@ -6089,7 +6043,7 @@
     "m_CastShadows": true,
     "m_ReceiveShadows": true,
     "m_SupportsLODCrossFade": false,
-    "m_CustomEditorGUI": "UnityEditor.ShaderGraph.ShaderGraphTemplateLitGUI",
+    "m_CustomEditorGUI": "",
     "m_SupportVFX": false
 }
 
@@ -6179,20 +6133,20 @@
 }
 
 {
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.SubGraphNode",
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.CustomFunctionNode",
     "m_ObjectId": "f10b9f206c454e23ade6ffad4fae646d",
     "m_Group": {
         "m_Id": "394ceba797964357861d4a38c538d405"
     },
-    "m_Name": "BaseNormal",
+    "m_Name": "VoxelNormalMap (Custom Function)",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
             "x": -1152.5,
             "y": 428.9999694824219,
-            "width": 203.49993896484376,
+            "width": 203.49993896484375,
             "height": 143.00009155273438
         }
     },
@@ -6211,26 +6165,18 @@
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 1,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_SerializedSubGraph": "{\n    \"subGraph\": {\n        \"fileID\": -5475051401550479605,\n        \"guid\": \"767b171f3a2c7dc468f930e725d05254\",\n        \"type\": 3\n    }\n}",
-    "m_PropertyGuids": [
-        "ebfccd04-8d8b-4ff7-ba43-18b574c00f74",
-        "b5f462e2-9e90-4f33-b89b-cf83e965906f",
-        "c83cc965-e7e5-462a-a682-4d797163199c"
-    ],
-    "m_PropertyIds": [
-        1696383809,
-        379060771,
-        1799540567
-    ],
-    "m_Dropdowns": [],
-    "m_DropdownSelectedEntries": []
+    "m_SourceType": 0,
+    "m_FunctionName": "VoxelNormalMap",
+    "m_FunctionSource": "9b3c61a092ac5dc69533acb7b249fecc",
+    "m_FunctionSourceUsePragmas": false,
+    "m_FunctionBody": ""
 }
 
 {
@@ -6465,6 +6411,164 @@
     "m_StageCapability": 2,
     "m_Value": 0.5,
     "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.UVNode",
+    "m_ObjectId": "b6edd4357916539aaa31253f9d4f2e52",
+    "m_Group": {
+        "m_Id": "394ceba797964357861d4a38c538d405"
+    },
+    "m_Name": "UV0",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -1553.5,
+            "y": 10.499992370605469,
+            "width": 165,
+            "height": 82
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "686974774dc55e74b8ee0e2e0daafe61"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 1,
+    "m_PreviewExpanded": false,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_OutputChannel": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
+    "m_ObjectId": "686974774dc55e74b8ee0e2e0daafe61",
+    "m_Id": 0,
+    "m_DisplayName": "Out",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector2MaterialSlot",
+    "m_ObjectId": "5e6d3b3b6b3854438669a090479d0cd6",
+    "m_Id": 41,
+    "m_DisplayName": "UV0",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "UV0",
+    "m_StageCapability": 2,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.ViewDirectionNode",
+    "m_ObjectId": "c4691ccc49305747aab8a57023532193",
+    "m_Group": {
+        "m_Id": "394ceba797964357861d4a38c538d405"
+    },
+    "m_Name": "View Direction",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -1553.5,
+            "y": 110.49999237060547,
+            "width": 165,
+            "height": 82
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "a9c775e4330153d3aefadca129feff9e"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 1,
+    "m_PreviewExpanded": false,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Space": 3
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
+    "m_ObjectId": "a9c775e4330153d3aefadca129feff9e",
+    "m_Id": 0,
+    "m_DisplayName": "Out",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
+    "m_ObjectId": "cd23137f8dae5742a9db7db3a92e91ac",
+    "m_Id": 42,
+    "m_DisplayName": "View Direction",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "ViewDirection",
+    "m_StageCapability": 2,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
     "m_Labels": []
 }
 
